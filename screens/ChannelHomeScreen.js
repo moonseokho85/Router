@@ -32,22 +32,27 @@ export default class ChannelHomeScreen extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const sleep = milliseconds => {
       return new Promise(resolve => setTimeout(resolve, milliseconds));
     };
 
-    sleep(200).then(() => {
+    await sleep(100).then(() => {
       this._fetchData();
     });
+
+    // const splitedImageData = this.state.fetchData.imge_url;
+    // await sleep(10000).then(console.log("---test---", splitedImageData));
+
+    // await sleep(200).then(console.log("--test--", this.state.fetchData));
   }
 
-  _fetchData = () => {
+  _fetchData = async () => {
     var data = {
       email: this.props.screenProps.email
     };
 
-    fetch("http://192.168.0.160:8080/react_content_select", {
+    await fetch("http://192.168.0.160:8080/react_native_content_select", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,31 +61,31 @@ export default class ChannelHomeScreen extends Component {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
+      // .then(resjson => console.log("-------------", resjson))
       .then(resData => this.setState({ fetchData: resData }))
       .catch(error => console.log(error));
+
+    await console.log("---confirming state---", this.state.fetchData);
   };
 
   render() {
     var user = firebase.auth().currentUser;
 
-    console.log(this.state.fetchData);
+    console.log("---fetchData---", this.state.fetchData);
 
     return (
       <Container>
         <Content>
           {this.state.fetchData.map((Data, i) => {
             return (
-              // <TouchableOpacity
-              //   key={i}
-              // >
               <CardComponent
                 key={i}
                 profile_image_url={user.photoURL}
                 title={Data.title}
                 // firstname = {this.state.firstname}
                 // lastname = {this.state.lastname}
-                upload_image={Data.convertedImg}
-                description={Data.contents}
+                upload_image={Data.image_url}
+                description={Data.content}
                 // nickname = {this.state.nickname}
                 onPressReply={() => {
                   this.props.navigation.navigate("Reply");

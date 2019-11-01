@@ -108,6 +108,8 @@ export default class LoginScreen extends Component {
   signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
+        // androidClientId:
+          // "1013339342054-4chan0f6dtejcjngkgms5ggpjc75tf8c.apps.googleusercontent.com",
         androidClientId: ANDROID_CLIENT_ID,
         behavior: "web",
         scopes: ["profile", "email"]
@@ -133,9 +135,13 @@ export default class LoginScreen extends Component {
       expires,
       permissions,
       declinedPermissions
-    } = await Facebook.logInWithReadPermissionsAsync(FACEBOOK_APP_ID, {
-      permissions: ["public_profile", "email"]
-    });
+    } = await Facebook.logInWithReadPermissionsAsync(
+      // "2181296531976373",
+      FACEBOOK_APP_ID,
+      {
+        permissions: ["public_profile", "email"]
+      }
+    );
     if (type == "success") {
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
       await firebase

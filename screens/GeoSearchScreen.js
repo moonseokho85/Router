@@ -36,6 +36,7 @@ class GooglePlacesInput extends Component {
         getDefaultValue={() => ""}
         query={{
           // available options: https://developers.google.com/places/web-service/autocomplete
+          // key: "AIzaSyB9TquLrtNi4kyXEQypxdv3psrKdrt6FMI",
           key: GOOGLE_MAP_API_KEY,
           language: "kr" // language of the results
           //   types: '(cities)' // default: 'geocode'

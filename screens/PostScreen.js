@@ -33,7 +33,7 @@ export default class PostScreen extends Component {
     this.state = {
       email: "",
       title: "",
-      // image: null,
+      image: null,
       // convertedImg: "",
       description: "",
       address: "",
@@ -69,7 +69,7 @@ export default class PostScreen extends Component {
       title: this.state.title,
       // photos: this.state.photos,
       convertedPhotos: this.state.convertedPhotos,
-      // image: this.state.image,
+      image: this.state.image,
       // convertedImg: this.state.convertedImg,
       description: this.state.description,
       latitude: this.props.navigation.getParam("lat"),
@@ -79,7 +79,7 @@ export default class PostScreen extends Component {
     console.log("--------confirm--------", data);
 
     setTimeout(() => {
-      fetch("http://192.168.0.160:8080/react_test_contents", {
+      fetch("http://192.168.0.160:8080/react_native_content_save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

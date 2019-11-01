@@ -85,7 +85,8 @@ export default class HomeScreen extends Component {
           description:
             "도나스를 사먹고 유성천 다리를 건너시면 본격적으로 유성시장으로 들어옵니다. 날이 좋으니 유성천 뷰가 참 좋네요. 다리는 도나스 가게 골목으로 나오시면 바로 있습니다."
         }
-      ]
+      ],
+      fetchData: []
     };
   }
 
@@ -95,9 +96,11 @@ export default class HomeScreen extends Component {
     )
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+
     var user = firebase.auth().currentUser;
-    await fetch("http://192.168.0.160:8080/react_native_login", {
+
+    fetch("http://192.168.0.160:8080/react_native_login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -105,9 +108,40 @@ export default class HomeScreen extends Component {
       },
       body: JSON.stringify(user.providerData)
     });
+
+    this._fetchData();
+
+    console.log("---componentDidMount TEST---", this.state.fetchData);
+
+    console.log("--componentDidMount fetchData--", this.state.fetchData.image_url);
   }
 
+  _fetchData = () => {
+
+    var user = firebase.auth().currentUser;
+
+    var data = {
+      email: user.email
+    };
+
+    fetch("http://192.168.0.160:8080/react_native_content_allselect", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(resData => this.setState({ fetchData: resData }))
+      .catch(error => console.log(error));
+  };
+
   render() {
+    var user = firebase.auth().currentUser;
+    var i =0
+    console.log("---confirming state---",i+1);
+
     return (
       <Container style={styles.container}>
         <Content>
@@ -184,23 +218,30 @@ export default class HomeScreen extends Component {
               </ScrollView>
             </View>
           </View>
-          {/* <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate("Detail");
-            }}
-          > */}
-          <CardComponent
-            onPressThumnail={() => {
-              this.props.navigation.navigate("");
-            }}
-            onPressContent={() => {
-              this.props.navigation.navigate("Detail");
-            }}
-            onPressReply={() => {
-              this.props.navigation.navigate("Reply");
-            }}
-          />
-          {/* </TouchableOpacity> */}
+          <View>
+            {this.state.fetchData.map((Data, i) => {
+              return (
+                <CardComponent
+                  key={i}
+                  profile_image_url={user.photoURL}
+                  title={Data.title}
+                  // firstname = {this.state.firstname}
+                  // lastname = {this.state.lastname}
+                  upload_image={Data.image_url}
+                  description={Data.contents}
+                  onPressThumnail={() => {
+                    this.props.navigation.navigate("");
+                  }}
+                  onPressContent={() => {
+                    this.props.navigation.navigate("Detail");
+                  }}
+                  onPressReply={() => {
+                    this.props.navigation.navigate("Reply");
+                  }}
+                />
+              );
+            })}
+          </View>
         </Content>
       </Container>
     );
