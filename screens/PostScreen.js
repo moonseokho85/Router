@@ -356,12 +356,12 @@ export default class PostScreen extends Component {
                   "정말로 업로드 하시겠습니까?",
                   [
                     {
-                      text: "Cancel",
+                      text: "아니오",
                       onPress: () => console.log("Cancel Pressed"),
                       style: "cancel"
                     },
                     {
-                      text: "OK",
+                      text: "예",
                       onPress: () => this._Post()
                     }
                   ],
