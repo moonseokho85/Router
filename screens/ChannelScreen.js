@@ -243,7 +243,7 @@ export default class ChannelScreen extends Component {
               style={{ position: "absolute", bottom: headerTitleBottom }}
             >
               <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-                {this.state.email}
+                {user.email}
               </Text>
             </Animated.View>
             <ScrollView
@@ -274,16 +274,16 @@ export default class ChannelScreen extends Component {
                   />
                 </Animated.View>
 
-                <View>
+                <View style={{backgroundColor: 'green'}}>
                   <Text
                     style={{
                       fontWeight: "bold",
                       fontSize: 26,
-                      paddingLeft: 10,
-                      paddingTop: 125
+                      marginLeft: 10,
+                      marginTop: 125
                     }}
                   >
-                    {this.props.navigation.getParam("nickname")}
+                    {user.displayName}
                   </Text>
                   <Text
                     style={{
@@ -293,7 +293,7 @@ export default class ChannelScreen extends Component {
                       paddingTop: 5
                     }}
                   >
-                    {this.state.email}
+                    {user.email}
                   </Text>
                 </View>
 
@@ -301,7 +301,8 @@ export default class ChannelScreen extends Component {
                   style={{
                     marginTop:
                       HEADER_MAX_HEIGHT - PROFILE_IMAGE_MAX_HEIGHT - 10,
-                    marginLeft: 50
+                    marginLeft: 50,
+                    backgroundColor: 'red'
                   }}
                 >
                   <TouchableOpacity>

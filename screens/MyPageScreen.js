@@ -128,7 +128,7 @@ export default class MyPageScreen extends Component {
                   style={styles.icon}
                   source={{
                     uri:
-                      "https://devitt-forand.com/wp-content/uploads/2018/05/person-icon.png"
+                      "https://housing.umn.edu/sites/housing.umn.edu/files/housing_contract.png"
                   }}
                 />
                 <Text style={styles.info}>내 정보 수정</Text>
@@ -156,7 +156,7 @@ export default class MyPageScreen extends Component {
                   style={styles.icon}
                   source={{
                     uri:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa0icr8neC2LBtRWa39puWKK6hwn3EBcufol55fXmVtgoCgg_tkQ"
+                      "https://cdn3.iconfinder.com/data/icons/love-and-valentine-3-1/136/117-512.png"
                   }}
                 />
                 <Text style={styles.info}>구독채널</Text>
