@@ -15,25 +15,25 @@ class Slider extends React.Component {
     this.scrollRef = React.createRef();
   }
 
-//   componentDidMount = () => {
-//     setInterval(() => {
-//       this.setState(
-//         prev => ({
-//           selectedIndex:
-//             prev.selectedIndex === this.props.images.length - 1
-//               ? 0
-//               : prev.selectedIndex + 1
-//         }),
-//         () => {
-//           this.scrollRef.current.scrollTo({
-//             animated: true,
-//             x: DEVICE_WIDTH * this.state.selectedIndex,
-//             y: 0
-//           });
-//         }
-//       );
-//     }, AUTO_SWIPE_INTERVAL);
-//   };
+  //   componentDidMount = () => {
+  //     setInterval(() => {
+  //       this.setState(
+  //         prev => ({
+  //           selectedIndex:
+  //             prev.selectedIndex === this.props.images.length - 1
+  //               ? 0
+  //               : prev.selectedIndex + 1
+  //         }),
+  //         () => {
+  //           this.scrollRef.current.scrollTo({
+  //             animated: true,
+  //             x: DEVICE_WIDTH * this.state.selectedIndex,
+  //             y: 0
+  //           });
+  //         }
+  //       );
+  //     }, AUTO_SWIPE_INTERVAL);
+  //   };
 
   nextImage = () =>
     this.setState(prev => ({
@@ -56,10 +56,11 @@ class Slider extends React.Component {
     const { images } = this.props;
     const { selectedIndex } = this.state;
     return (
-      <View style={{ height: 250, width: "100%" }}>
+      <View style={{ height: 210, width: "100%" }}>
         <ScrollView
           horizontal
           pagingEnabled
+          showsHorizontalScrollIndicator={false}
           onMomentumScrollEnd={this.setSelectedIndex}
           ref={this.scrollRef}
         >
@@ -102,13 +103,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     height: 10
+    // backgroundColor: 'yellow'
   },
   whiteCircle: {
-    width: 6,
-    height: 6,
+    width: 4,
+    height: 4,
     borderRadius: 3,
-    margin: 5,
-    backgroundColor: "red"
+    margin: 2,
+    backgroundColor: "white"
   }
 });
 

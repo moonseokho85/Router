@@ -37,7 +37,7 @@ export default class ChannelContentListScreen extends Component {
     _fetchData = () => {
             
         var data = {
-            email: this.props.screenProps.email
+            email: "mseokho7733@gmail.com"
         }
           
         fetch('http://192.168.0.160:8080/react_content_select' ,{

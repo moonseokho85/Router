@@ -1,11 +1,46 @@
 import React from "react";
 import { Icon } from "react-native-elements";
 import { createStackNavigator } from "react-navigation-stack";
-import PromiseScreen from "../screens/PromiseScreen";
+import PromiseWaitingScreen from "../screens/PromiseWaitingScreen";
+import PromiseProceedingScreen from "../screens/PromiseProceedingScreen";
+import PromiseCompletedScreen from "../screens/PromiseCompletedScreen";
 
 const PromiseStack = createStackNavigator({
-  Search: {
-    screen: PromiseScreen,
+  PromiseWaiting: {
+    screen: PromiseWaitingScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+        title: "Router.",
+        headerRight: (
+          <Icon
+            style={{ paddingRight: 20 }}
+            onPress={() => navigation.openDrawer()}
+            name="menu"
+            size={30}
+          />
+        )
+      };
+    }
+  },
+  PromiseProceeding: {
+    screen: PromiseProceedingScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+        title: "Router.",
+        headerRight: (
+          <Icon
+            style={{ paddingRight: 20 }}
+            onPress={() => navigation.openDrawer()}
+            name="menu"
+            size={30}
+          />
+        )
+      };
+    }
+  },
+
+  PromiseCompleted: {
+    screen: PromiseCompletedScreen,
     navigationOptions: ({ navigation }) => {
       return {
         title: "Router.",

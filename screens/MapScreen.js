@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Dimensions, Platform } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import MapView from "react-native-maps";
+import { Marker } from "react-native-maps";
+// import MapView from "react-native-map-clustering";
+// import { ClusterMap } from "react-native-cluster-map";
 import Constants from "expo-constants";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
@@ -81,15 +84,62 @@ export default class MapScreen extends Component {
           }}
         />
         <MapView
+          provider={"google"}
           initialRegion={this.state.region}
+          // mapType={"standard"}
           showsUserLocation={true}
           showsCompass={true}
-          rotateEnabled={false}
+          rotateEnabled={true}
           ref={map => {
             this.map = map;
           }}
           style={styles.mapStyle}
-        />
+        >
+          <Marker
+            coordinate={{
+              latitude: 36.3671979,
+              longitude: 127.4362689
+            }}
+            cluster={false}
+            // title="My Location"
+            // description="Here I am"
+          />
+          <Marker
+            coordinate={{
+              latitude: 37.3671979,
+              longitude: 127.4362689
+            }}
+            cluster={false}
+            // title="My Location"
+            // description="Here I am"
+          />
+          <Marker
+            coordinate={{
+              latitude: 38.3671979,
+              longitude: 127.4362689
+            }}
+            cluster={false}
+            // title="My Location"
+            // description="Here I am"
+          />
+          <Marker
+            coordinate={{
+              latitude: 39.3671979,
+              longitude: 127.4362689
+            }}
+            cluster={false}
+            // title="My Location"
+            // description="Here I am"
+          />
+          <Marker
+            coordinate={{
+              latitude: 36.3671979,
+              longitude: 127.4362689
+            }}
+            // title="My Location"
+            // description="Here I am"
+          />
+        </MapView>
       </View>
     );
   }

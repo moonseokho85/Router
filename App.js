@@ -40,18 +40,26 @@ const CustomDrawerContentComponent = props => {
       <Header style={{ height: 200, backgroundColor: "orange" }}>
         <Body
           style={{
+            // flexDirection: "row",
             justifyContent: "center",
             alignContent: "center",
             alignItems: "flex-start"
           }}
         >
           <Image style={styles.drawerImage} source={{ uri: user.photoURL }} />
-          <Text>{user.email}</Text>
+          <View style={{ marginLeft: 10, marginTop: 5 }}>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              {user.displayName}
+            </Text>
+            <Text>{user.email}</Text>
+          </View>
         </Body>
       </Header>
+
       <Content>
         <DrawerNavigatorItems {...props} />
       </Content>
+
       <Button
         style={{
           justifyContent: "center"
@@ -75,10 +83,11 @@ const AppDrawerNavigator = createDrawerNavigator(
   },
   {
     drawerPosition: "right",
+    drawerType: "slide",
     initialRouteName: "홈",
     contentComponent: CustomDrawerContentComponent,
-    drawerOpenRoute: "DrawerOpen",
-    drawerCloseRoute: "DrawerClose",
+    // drawerOpenRoute: "DrawerOpen",
+    // drawerCloseRoute: "DrawerClose",
     drawerToggleRoute: "DrawerToggle"
   }
 );
@@ -109,9 +118,10 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   drawerImage: {
-    height: 100,
-    width: 100,
-    borderRadius: 25
+    height: 70,
+    width: 70,
+    borderRadius: 25,
+    margin: 5
     // justifyContent : 'center',
     // alignContent : 'center',
   }

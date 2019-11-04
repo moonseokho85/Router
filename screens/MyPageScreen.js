@@ -18,7 +18,7 @@ export default class MyPageScreen extends Component {
 
   render() {
     var user = firebase.auth().currentUser;
-    console.log(user);
+    console.log("--- USER INFO ---", user);
 
     return (
       <View style={styles.container}>
@@ -122,7 +122,7 @@ export default class MyPageScreen extends Component {
         {/* 아이콘 */}
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <TouchableOpacity Onpress={() => this.goToNextScreen()}>
+            <TouchableOpacity onPress={() => this.goToNextScreen()}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
@@ -150,7 +150,7 @@ export default class MyPageScreen extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity Onpress={() => this.goToNextScreen()}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('SubscriptionChannel')}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
@@ -163,7 +163,7 @@ export default class MyPageScreen extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity Onpress={() => this.goToNextScreen()}>
+            <TouchableOpacity onPress={() => this.goToNextScreen()}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
@@ -176,7 +176,7 @@ export default class MyPageScreen extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity Onpress={() => this.goToNextScreen()}>
+            <TouchableOpacity onPress={() => this.goToNextScreen()}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
@@ -189,7 +189,7 @@ export default class MyPageScreen extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity Onpress={() => this.goToNextScreen()}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Notice')}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
@@ -202,7 +202,7 @@ export default class MyPageScreen extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity Onpress={() => this.goToNextScreen()}>
+            <TouchableOpacity onPress={() => this.goToNextScreen()}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
@@ -215,7 +215,7 @@ export default class MyPageScreen extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity Onpress={() => this.goToNextScreen()}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}

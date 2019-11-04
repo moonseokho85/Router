@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 
 import SearchStack from "../stacks/SearchStack";
 import MapScreen from "../screens/MapScreen";
-import PromiseScreen from "../screens/PromiseScreen";
+// import PromiseScreen from "../screens/PromiseScreen";
 
 import HomeStack from "../stacks/HomeStack";
 import MyPageStack from "../stacks/MyPageStack";

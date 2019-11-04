@@ -27,6 +27,8 @@ import MapView from "react-native-maps";
 
 import ImageBrowser from "../components/ImageBrowser";
 
+import {RNS3_ACCESS_KEY, RNS3_SECRET_KEY} from 'react-native-dotenv'
+
 export default class PostScreen extends Component {
   constructor(props) {
     super(props);
@@ -150,8 +152,8 @@ export default class PostScreen extends Component {
             keyPrefix: "blog_image/",
             bucket: "tripco-imagefile",
             region: "ap-northeast-2",
-            accessKey: "AKIAJQ5TEPLAO226FD7A",
-            secretKey: "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",
+            accessKey: RNS3_ACCESS_KEY,
+            secretKey: RNS3_SECRET_KEY,
             successActionStatus: 201
           }
         ).then(response => {

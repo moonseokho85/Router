@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  Animated
+} from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
 import CardComponent from "../components/CardComponent";
@@ -17,7 +25,11 @@ import {
 
 import firebase from "firebase";
 
-export default class ChannelHomeScreen extends Component {
+import { withCollapsibleForTabChild } from "react-navigation-collapsible";
+
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
+class ChannelHomeScreen extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Icon name="md-home" style={{ color: tintColor }} />
@@ -41,6 +53,9 @@ export default class ChannelHomeScreen extends Component {
       this._fetchData();
     });
 
+    // this._fetchData();
+    console.log("executed function _fetchData");
+    console.log("---THIS.PROPS---", JSON.stringify(this.props))
     // const splitedImageData = this.state.fetchData.imge_url;
     // await sleep(10000).then(console.log("---test---", splitedImageData));
 
@@ -48,8 +63,9 @@ export default class ChannelHomeScreen extends Component {
   }
 
   _fetchData = async () => {
+    
     var data = {
-      email: this.props.screenProps.email
+      email: this.props.screenProps.navigation.state.params.email
     };
 
     await fetch("http://192.168.0.160:8080/react_native_content_select", {
@@ -68,15 +84,31 @@ export default class ChannelHomeScreen extends Component {
     await console.log("---confirming state---", this.state.fetchData);
   };
 
-  render() {
-    var user = firebase.auth().currentUser;
+  renderItem = ({ item }) => (
+    <CardComponent
+      profile_image_url={item.photoURL}
+      title={item.title}
+      // firstname = {this.state.firstname}
+      // lastname = {this.state.lastname}
+      upload_image={item.image_url}
+      description={item.content}
+      // nickname = {this.state.nickname}
+      onPressReply={() => {
+        this.props.navigation.navigate("Reply");
+      }}
+    />
+  );
 
-    console.log("---fetchData---", this.state.fetchData);
+  render() {
+    console.log("---props test---", this.state.fetchData);
+    var user = firebase.auth().currentUser;
+    const { animatedY, onScroll } = this.props.screenProps.collapsible;
+    // console.log(this.props)
 
     return (
       <Container>
         <Content>
-          {this.state.fetchData.map((Data, i) => {
+          {/* {this.state.fetchData.map((Data, i) => {
             return (
               <CardComponent
                 key={i}
@@ -93,17 +125,19 @@ export default class ChannelHomeScreen extends Component {
               />
               // </TouchableOpacity>
             );
-          })}
+          })} */}
+          <AnimatedFlatList
+            style={{ flex: 1 }}
+            data={this.state.fetchData}
+            renderItem={this.renderItem}
+            keyExtractor={(item, index) => String(index)}
+            onScroll={onScroll}
+            _mustAddThis={animatedY}
+          />
         </Content>
       </Container>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignContent: "center"
-  }
-});
+export default withCollapsibleForTabChild(ChannelHomeScreen);

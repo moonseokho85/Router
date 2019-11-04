@@ -4,6 +4,10 @@ import { createStackNavigator } from "react-navigation-stack";
 import MyPageScreen from "../screens/MyPageScreen";
 import ChannelScreen from "../screens/ChannelScreen";
 import ReplyScreen from "../screens/ReplyScreen";
+import SettingScreen from "../screens/SettingScreen";
+import NoticeScreen from "../screens/NoticeScreen";
+import SubscriptionListScreen from "../screens/SubscriptionListScreen";
+import ChTabNavigator from "../navigations/ChTabNavigator";
 
 const MyPageStack = createStackNavigator({
   MyPage: {
@@ -24,14 +28,43 @@ const MyPageStack = createStackNavigator({
   },
 
   MyChannel: {
-    screen: ChannelScreen,
+    screen: ChTabNavigator,
 
     navigationOptions: {
       header: null
     }
   },
-  Reply : {
-    screen : ReplyScreen
+
+  SubscriptionChannel: {
+    screen: SubscriptionListScreen,
+
+    navigationOptions: {
+      title: '구독 중인 채널'
+    }
+  },
+
+  Reply: {
+    screen: ReplyScreen,
+
+    navigationOptions: {
+      title: '댓글'
+    }
+  },
+
+  Notice: {
+    screen: NoticeScreen,
+
+    navigationOptions: {
+      title: '공지사항'
+    }
+  },
+
+  Setting: {
+    screen: SettingScreen,
+
+    navigationOptions: {
+      title: '설정'
+    }
   }
 });
 

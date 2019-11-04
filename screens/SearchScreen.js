@@ -144,7 +144,7 @@ export default class SearchScreen extends Component {
             alignItems: "center"
           }}
           ItemSeparatorComponent={this.renderSeparator}
-          ListHeaderComponent={this.renderHeader}
+          // ListHeaderComponent={this.renderHeader}
           numColumns={2}
           keyExtractor={(item, index) => index.toString()}
         />

@@ -10,6 +10,7 @@ import { createAppContainer } from "react-navigation";
 import SubscriptionListScreen from "../screens/SubscriptionListScreen";
 import ReplyScreen from "../screens/ReplyScreen";
 import ContentDetailScreen from "../screens/ContentDetailScreen";
+import ChTabNavigator from "../navigations/ChTabNavigator";
 
 const HomeStack = createStackNavigator(
   {
@@ -32,7 +33,7 @@ const HomeStack = createStackNavigator(
     },
 
     CreatorChannel: {
-      screen: ChannelScreen,
+      screen: ChTabNavigator,
 
       navigationOptions: {
         header: null
