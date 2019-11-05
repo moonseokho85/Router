@@ -18,15 +18,17 @@ import TabChild1Screen from "../screens/TabChild1Screen";
 
 import { withCollapsibleForTab } from "react-navigation-collapsible";
 import firebase from "firebase";
+import MyChannelHomeScreen from "../screens/MyChannelHomeScreen";
+import SubscriptionButton from '../components/SubscriptionButton'
+import { TouchableHighlight } from "react-native-gesture-handler";
 
-
-const ChTabNavigator = createMaterialTopTabNavigator(
+const MyChTabNavigator = createMaterialTopTabNavigator(
   {
     홈: {
-      screen: ChannelHomeStack
+      screen: MyChannelHomeScreen
     },
     글목록: {
-      screen: ChannelContentListScreen
+      screen: TabChild1Screen
     },
     커뮤니티: {
       screen: ChannelCommunityScreen
@@ -66,75 +68,44 @@ const url_cat =
 // eslint-disable-next-line no-unused-vars
 const GroupImageHeader = ({ navigation, collapsible }) => {
   // eslint-disable-next-line no-unused-vars
-  // console.log(
-  //   "--- PASS PARAMS CHTABNAVIGATORS ---",
-  //   JSON.stringify(navigation.router)
-  // );
+  // console.log(collapsible)
 
   var user = firebase.auth().currentUser;
 
   const { translateY, translateOpacity, translateProgress } = collapsible;
 
-  if (navigation.state.params.email) {
-    return (
-      <View style={{ width: "100%", height: "100%", justifyContent: "center" }}>
-        <Image
-          source={{ uri: url_cat }}
-          resizeMode="cover"
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            opacity: 0.5
-          }}
-        />
-        <Animated.Image
-          source={{ uri: url_cat }}
-          resizeMode="cover"
-          style={{
-            transform: [{ scale: translateOpacity }],
-            alignSelf: "center",
-            width: 100,
-            height: 100,
-            borderWidth: 4,
-            borderColor: "white",
-            borderRadius: 50
-          }}
-        />
-        <Text>
-          fdjkslafjdkslajfklsdjfklsajfklsjdaklfjsdalkfjsdklajflk;sdajflksadjlk
-        </Text>
-      </View>
-    );
-  } else {
-    return (
-      <View style={{ width: "100%", height: "100%", justifyContent: "center" }}>
-        <Image
-          source={{ uri: url_cat }}
-          resizeMode="cover"
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            opacity: 0.5
-          }}
-        />
-        <Animated.Image
-          source={{ uri: url_cat }}
-          resizeMode="cover"
-          style={{
-            transform: [{ scale: translateOpacity }],
-            alignSelf: "center",
-            width: 100,
-            height: 100,
-            borderWidth: 4,
-            borderColor: "white",
-            borderRadius: 50
-          }}
-        />
-      </View>
-    );
-  }
+  return (
+    <View style={{ width: "100%", height: "100%", justifyContent: "center" }}>
+      <Image
+        source={{ uri: url_cat }}
+        resizeMode="cover"
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          opacity: 0.5
+        }}
+      />
+      <Animated.Image
+        source={{ uri: user.photoURL }}
+        resizeMode="cover"
+        style={{
+          transform: [{ scale: translateOpacity }],
+          alignSelf: "center",
+          width: 100,
+          height: 100,
+          borderWidth: 4,
+          borderColor: "white",
+          borderRadius: 50
+        }}
+      />
+      <Animated.View>
+          <TouchableHighlight onPress={()=>{navigation.navigate('Post')}}>
+              <Text>Post</Text>
+          </TouchableHighlight>
+      </Animated.View>
+    </View>
+  );
 };
 
 const collapsibleParams = {
@@ -145,4 +116,4 @@ const collapsibleParams = {
   }
 };
 
-export default withCollapsibleForTab(ChTabNavigator, collapsibleParams);
+export default withCollapsibleForTab(MyChTabNavigator, collapsibleParams);

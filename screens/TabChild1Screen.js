@@ -43,6 +43,7 @@ class TabChild1Screen extends Component {
 
   render() {
     const { animatedY, onScroll } = this.props.collapsible;
+    // console.log("---COLLAPSIBLE PARAMS TEST---", this.props.collapsible)
 
     return (
       <AnimatedFlatList

@@ -140,7 +140,7 @@ export default class HomeScreen extends Component {
   render() {
     var user = firebase.auth().currentUser;
     var i =0
-    console.log("---confirming state---",i+1);
+    // console.log("---confirming state---",i+1);
 
     return (
       <Container style={styles.container}>

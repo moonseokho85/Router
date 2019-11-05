@@ -27,7 +27,7 @@ import MapView from "react-native-maps";
 
 import ImageBrowser from "../components/ImageBrowser";
 
-import {RNS3_ACCESS_KEY, RNS3_SECRET_KEY} from 'react-native-dotenv'
+import { RNS3_ACCESS_KEY, RNS3_SECRET_KEY } from "react-native-dotenv";
 
 export default class PostScreen extends Component {
   constructor(props) {
@@ -61,8 +61,15 @@ export default class PostScreen extends Component {
     fetch("");
   };
 
-  _Post = () => {
-    this._convertUri();
+  _Post = async () => {
+
+    await this.setState({
+      convertedPhotos: []
+    })
+
+    await this._convertUri();
+
+    await console.log(this.state.convertedPhotos)
 
     var user = firebase.auth().currentUser;
 
@@ -78,7 +85,7 @@ export default class PostScreen extends Component {
       longitude: this.props.navigation.getParam("lng")
     };
 
-    console.log("--------confirm--------", data);
+    await console.log("-------- CONFIRM POST DATA --------", data);
 
     setTimeout(() => {
       fetch("http://192.168.0.160:8080/react_native_content_save", {
@@ -93,7 +100,7 @@ export default class PostScreen extends Component {
         .then(resData => console.log(resData))
         .then(() => this.props.navigation.dismiss())
         .catch(error => console.log(error));
-    }, 3000);
+    }, 10000);
   };
 
   getPermissionAsync = async () => {
@@ -137,8 +144,9 @@ export default class PostScreen extends Component {
   };
 
   _convertUri = async () => {
+    console.log("---THIS.STATE.PHOTOS CONFIRM---", this.state.photos)
     {
-      this.state.photos.map((Data, i) => {
+      await this.state.photos.map((Data, i) => {
         const user = firebase.auth().currentUser;
 
         RNS3.put(
@@ -160,9 +168,9 @@ export default class PostScreen extends Component {
           if (response.status !== 201)
             throw new Error("Failed to upload image to S3");
 
-          console.log(response.body.postResponse.location);
+          console.log("--- RESPONSE.BODY.POSTRESPONSE.LOCATION ---", response.body.postResponse.location);
           this.state.convertedPhotos.push(response.body.postResponse.location);
-          console.log("--------------------", this.state.convertedPhotos);
+          // console.log("--------------------", this.state.convertedPhotos);
         });
       });
     }

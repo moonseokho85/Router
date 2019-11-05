@@ -29,7 +29,7 @@ import { withCollapsibleForTabChild } from "react-navigation-collapsible";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-class ChannelHomeScreen extends Component {
+class MyChannelHomeScreen extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Icon name="md-home" style={{ color: tintColor }} />
@@ -55,7 +55,7 @@ class ChannelHomeScreen extends Component {
 
     // this._fetchData();
     // console.log("executed function _fetchData");
-    // console.log("---THIS.PROPS---", JSON.stringify(this.props))
+    // console.log("---THIS.PROPS---", JSON.stringify(this.props));
     // const splitedImageData = this.state.fetchData.imge_url;
     // await sleep(10000).then(console.log("---test---", splitedImageData));
 
@@ -63,9 +63,10 @@ class ChannelHomeScreen extends Component {
   }
 
   _fetchData = async () => {
-    
+    const user = firebase.auth().currentUser;
+
     var data = {
-      email: this.props.screenProps.navigation.state.params.email
+      email: user.email
     };
 
     await fetch("http://192.168.0.160:8080/react_native_content_select", {
@@ -102,13 +103,14 @@ class ChannelHomeScreen extends Component {
   render() {
     // console.log("---props test---", this.state.fetchData);
     var user = firebase.auth().currentUser;
-    const { animatedY, onScroll } = this.props.screenProps.collapsible;
-    // console.log(this.props)
+    const { animatedY, onScroll } = this.props.collapsible;
+    // console.log("COLLAPSIBLE TEST", this.props)
 
-    return (
-      <Container>
-        <Content>
-          {/* {this.state.fetchData.map((Data, i) => {
+    // return (
+    //   <Container>
+    //     <Content>
+    {
+      /* {this.state.fetchData.map((Data, i) => {
             return (
               <CardComponent
                 key={i}
@@ -125,19 +127,30 @@ class ChannelHomeScreen extends Component {
               />
               // </TouchableOpacity>
             );
-          })} */}
-          <AnimatedFlatList
-            style={{ flex: 1 }}
-            data={this.state.fetchData}
-            renderItem={this.renderItem}
-            keyExtractor={(item, index) => String(index)}
-            onScroll={onScroll}
-            _mustAddThis={animatedY}
-          />
-        </Content>
-      </Container>
+          })} */
+    }
+    //   <AnimatedFlatList
+    //     style={{ flex: 1 }}
+    //     data={this.state.fetchData}
+    //     renderItem={this.renderItem}
+    //     keyExtractor={(item, index) => String(index)}
+    //     onScroll={onScroll}
+    //     _mustAddThis={animatedY}
+    //   />
+    //     </Content>
+    //   </Container>
+    // );
+    return (
+      <AnimatedFlatList
+        style={{ flex: 1 }}
+        data={this.state.fetchData}
+        renderItem={this.renderItem}
+        keyExtractor={(item, index) => String(index)}
+        onScroll={onScroll}
+        _mustAddThis={animatedY}
+      />
     );
   }
 }
 
-export default withCollapsibleForTabChild(ChannelHomeScreen);
+export default withCollapsibleForTabChild(MyChannelHomeScreen);

@@ -25,7 +25,7 @@ class GooglePlacesInput extends Component {
         renderDescription={row => row.description} // custom description render
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
-          console.log(details);
+          console.log("--- GEO_SEARCH_SCREEN DETAILS INFORMATION ---", details);
           this.setState();
           this.props.navigation.navigate("Upload", {
             lat: details.geometry.location.lat,
