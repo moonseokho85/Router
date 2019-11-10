@@ -1,15 +1,22 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, Animated, FlatList} from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  FlatList,
+  Animated
+} from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
 import ListComponent from "../components/ListComponent";
 import { Container, Content, List } from "native-base";
 import { withCollapsibleForTabChild } from "react-navigation-collapsible";
+import firebase from "firebase";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-
-class ChannelContentListScreen extends Component {
+class MyChannelContentListScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +30,7 @@ class ChannelContentListScreen extends Component {
     )
   };
 
-  async componentDidMount() {
+  async componentDidMount () {
     // const sleep = milliseconds => {
     //   return new Promise(resolve => setTimeout(resolve, milliseconds));
     // };
@@ -32,14 +39,15 @@ class ChannelContentListScreen extends Component {
     //   this._fetchData();
     // });
 
-    await this._fetchData();
+    await this._fetchData()
 
-    // console.log(this.state.fetchData);
+    
   }
 
   _fetchData = () => {
+    var user = firebase.auth().currentUser;
     var data = {
-      email: this.props.screenProps.navigation.state.params.email
+      email: user.email
     };
 
     fetch("http://34.82.57.148:8080/react_native_content_select", {
@@ -64,6 +72,7 @@ class ChannelContentListScreen extends Component {
   );
 
   render() {
+
     const { animatedY, onScroll } = this.props.collapsible;
     // console.log("--- MY CHANNEL CONTENT LIST SCREEN FETCHDATA ---", this.state.fetchData);
 
@@ -88,4 +97,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withCollapsibleForTabChild(ChannelContentListScreen);
+export default withCollapsibleForTabChild(MyChannelContentListScreen);

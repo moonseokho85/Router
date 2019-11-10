@@ -38,17 +38,25 @@ export default class CardCompnent extends Component {
       Reply: ""
     };
   }
-  componentDidMount() {}
-
-  _Reply = () => {};
 
   render() {
+    // console.log("--- CARD COMPONENT THIS.PROPS ---", this.props);
+
     return (
       <Card>
         <CardItem>
           <Left>
             <TouchableOpacity onPress={this.props.onPressThumnail}>
-              <Thumbnail source={{ uri: this.props.profile_image_url }} />
+              <Thumbnail
+                square
+                style={{
+                  // marginHorizontal: 5,
+                  // borderColor: "grey",
+                  // borderWidth: 2,
+                  borderRadius: 10
+                }}
+                source={{ uri: this.props.profile_image_url }}
+              />
             </TouchableOpacity>
             <Body>
               <Text>
@@ -83,7 +91,15 @@ export default class CardCompnent extends Component {
               <Text>{this.props.likes} likes</Text>
             </Left>
             <Right>
-              <LikeButton />
+              <LikeButton
+                email={this.props.email}
+                user={this.props.user}
+                // title={this.props.title}
+                title_no={this.props.title_no}
+                de_menu={this.props.de_menu}
+                up_text={this.props.up_text}
+                down_text={this.props.down_text}
+              />
               {/* <Button transparent>
               <Icon name='ios-chatbubbles' style={{ color:'black' }}/>
             </Button>

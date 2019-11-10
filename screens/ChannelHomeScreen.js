@@ -63,12 +63,11 @@ class ChannelHomeScreen extends Component {
   }
 
   _fetchData = async () => {
-    
     var data = {
       email: this.props.screenProps.navigation.state.params.email
     };
 
-    await fetch("http://192.168.0.160:8080/react_native_content_select", {
+    await fetch("http://34.82.57.148:8080/react_native_content_select", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +85,7 @@ class ChannelHomeScreen extends Component {
 
   renderItem = ({ item }) => (
     <CardComponent
-      profile_image_url={item.photoURL}
+      profile_image_url={item.profile_url}
       title={item.title}
       // firstname = {this.state.firstname}
       // lastname = {this.state.lastname}
@@ -100,42 +99,19 @@ class ChannelHomeScreen extends Component {
   );
 
   render() {
-    // console.log("---props test---", this.state.fetchData);
+    console.log("---props test---", this.state.fetchData);
     var user = firebase.auth().currentUser;
-    const { animatedY, onScroll } = this.props.screenProps.collapsible;
-    // console.log(this.props)
+    const { animatedY, onScroll } = this.props.collapsible;    // console.log(this.props)
 
     return (
-      <Container>
-        <Content>
-          {/* {this.state.fetchData.map((Data, i) => {
-            return (
-              <CardComponent
-                key={i}
-                profile_image_url={user.photoURL}
-                title={Data.title}
-                // firstname = {this.state.firstname}
-                // lastname = {this.state.lastname}
-                upload_image={Data.image_url}
-                description={Data.content}
-                // nickname = {this.state.nickname}
-                onPressReply={() => {
-                  this.props.navigation.navigate("Reply");
-                }}
-              />
-              // </TouchableOpacity>
-            );
-          })} */}
-          <AnimatedFlatList
-            style={{ flex: 1 }}
-            data={this.state.fetchData}
-            renderItem={this.renderItem}
-            keyExtractor={(item, index) => String(index)}
-            onScroll={onScroll}
-            _mustAddThis={animatedY}
-          />
-        </Content>
-      </Container>
+      <AnimatedFlatList
+        style={{ flex: 1 }}
+        data={this.state.fetchData}
+        renderItem={this.renderItem}
+        keyExtractor={(item, index) => String(index)}
+        onScroll={onScroll}
+        _mustAddThis={animatedY}
+      />
     );
   }
 }

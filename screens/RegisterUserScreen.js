@@ -69,7 +69,7 @@ class RegisterUserScreen extends React.Component {
       profile_image_url: this.state.profile_image_url
     };
 
-    fetch("http://192.168.0.160:8080/react_user_save", {
+    fetch("http://34.82.57.148:8080/react_user_save", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

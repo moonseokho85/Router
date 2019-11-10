@@ -22,9 +22,6 @@ import * as Permissions from "expo-permissions";
 import { RNS3 } from "react-native-s3-upload";
 
 import MapView from "react-native-maps";
-
-// import { ImageBrowser } from 'expo-multiple-media-imagepicker';
-
 import ImageBrowser from "../components/ImageBrowser";
 
 import { RNS3_ACCESS_KEY, RNS3_SECRET_KEY } from "react-native-dotenv";
@@ -57,19 +54,14 @@ export default class PostScreen extends Component {
     });
   }
 
-  _fetchCategory = () => {
-    fetch("");
-  };
-
   _Post = async () => {
-
     await this.setState({
       convertedPhotos: []
-    })
+    });
 
     await this._convertUri();
 
-    await console.log(this.state.convertedPhotos)
+    await console.log(this.state.convertedPhotos);
 
     var user = firebase.auth().currentUser;
 
@@ -88,7 +80,7 @@ export default class PostScreen extends Component {
     await console.log("-------- CONFIRM POST DATA --------", data);
 
     setTimeout(() => {
-      fetch("http://192.168.0.160:8080/react_native_content_save", {
+      fetch("http://34.82.57.148:8080/react_native_content_save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -144,7 +136,7 @@ export default class PostScreen extends Component {
   };
 
   _convertUri = async () => {
-    console.log("---THIS.STATE.PHOTOS CONFIRM---", this.state.photos)
+    console.log("---THIS.STATE.PHOTOS CONFIRM---", this.state.photos);
     {
       await this.state.photos.map((Data, i) => {
         const user = firebase.auth().currentUser;
@@ -168,7 +160,10 @@ export default class PostScreen extends Component {
           if (response.status !== 201)
             throw new Error("Failed to upload image to S3");
 
-          console.log("--- RESPONSE.BODY.POSTRESPONSE.LOCATION ---", response.body.postResponse.location);
+          console.log(
+            "--- RESPONSE.BODY.POSTRESPONSE.LOCATION ---",
+            response.body.postResponse.location
+          );
           this.state.convertedPhotos.push(response.body.postResponse.location);
           // console.log("--------------------", this.state.convertedPhotos);
         });
@@ -402,29 +397,6 @@ export default class PostScreen extends Component {
                 </Text>
               </View>
             </TouchableOpacity>
-            {/* <Button
-              title="업로드"
-              onPress={() =>
-                Alert.alert(
-                  "확인",
-                  "정말로 업로드 하시겠습니까?",
-                  [
-                    {
-                      text: "Cancel",
-                      onPress: () => console.log("Cancel Pressed"),
-                      style: "cancel"
-                    },
-                    {
-                      text: "OK",
-                      onPress: () => this._Post()
-                    }
-                  ],
-                  {
-                    cancelable: false
-                  }
-                )
-              }
-            /> */}
           </View>
         </View>
       </ScrollView>

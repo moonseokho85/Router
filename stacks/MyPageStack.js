@@ -39,7 +39,10 @@ const MyPageStack = createStackNavigator({
   },
 
   Post : {
-    screen : UploadStack
+    screen : UploadStack,
+    navigationOptions: {
+      title: '위치 추가'
+    }
   },
 
   SubscriptionChannel: {

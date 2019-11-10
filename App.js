@@ -23,6 +23,7 @@ import { Router, Scene } from "react-native-router-flux";
 import ChannelScreen from "./screens/ChannelScreen";
 import PostScreen from "./screens/PostScreen";
 import ChAppTabNavigator from "./navigations/ChTabNavigator";
+import MyChTabNavigator from "./navigations/MyChTabNavigator";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -78,7 +79,7 @@ const AppDrawerNavigator = createDrawerNavigator(
       screen: BottomStackNavigator
     },
     내채널: {
-      screen: ChannelScreen
+      screen: MyChTabNavigator
     }
   },
   {

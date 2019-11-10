@@ -69,7 +69,7 @@ class MyChannelHomeScreen extends Component {
       email: user.email
     };
 
-    await fetch("http://192.168.0.160:8080/react_native_content_select", {
+    await fetch("http://34.82.57.148:8080/react_native_content_select", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

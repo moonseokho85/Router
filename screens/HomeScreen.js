@@ -97,10 +97,9 @@ export default class HomeScreen extends Component {
   };
 
   componentDidMount() {
-
     var user = firebase.auth().currentUser;
 
-    fetch("http://192.168.0.160:8080/react_native_login", {
+    fetch("http://34.82.57.148:8080/react_native_login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -111,20 +110,19 @@ export default class HomeScreen extends Component {
 
     this._fetchData();
 
-    console.log("---componentDidMount TEST---", this.state.fetchData);
+    // console.log("---componentDidMount TEST---", this.state.fetchData);
 
-    console.log("--componentDidMount fetchData--", this.state.fetchData.image_url);
+    // console.log("--componentDidMount fetchData--", this.state.fetchData.image_url);
   }
 
   _fetchData = () => {
-
     var user = firebase.auth().currentUser;
 
     var data = {
       email: user.email
     };
 
-    fetch("http://192.168.0.160:8080/react_native_content_allselect", {
+    fetch("http://34.82.57.148:8080/react_native_content_allselect", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -139,8 +137,7 @@ export default class HomeScreen extends Component {
 
   render() {
     var user = firebase.auth().currentUser;
-    var i =0
-    // console.log("---confirming state---",i+1);
+    console.log("--- HOMESCREEN FETCHDATA ---", this.state.fetchData);
 
     return (
       <Container style={styles.container}>
@@ -223,17 +220,46 @@ export default class HomeScreen extends Component {
               return (
                 <CardComponent
                   key={i}
-                  profile_image_url={user.photoURL}
+                  profile_image_url={Data.profile_url}
                   title={Data.title}
                   // firstname = {this.state.firstname}
                   // lastname = {this.state.lastname}
                   upload_image={Data.image_url}
-                  description={Data.contents}
+                  description={Data.content}
+                  email={Data.id}
+                  user={user.email}
+                  title_no={Data.title_no}
+                  de_menu={Data.de_menu}
+                  up_text={Data.up_text}
+                  down_text={Data.down_text}
                   onPressThumnail={() => {
-                    this.props.navigation.navigate("");
+                    this.props.navigation.navigate("CreatorChannel", {
+                      email: Data.id,
+                      firstname: Data.firstname,
+                      lastname: Data.lastname,
+                      nickname: Data.nickname,
+                      profile_image_url: Data.profile_url,
+                      title: Data.title,
+                      upload_image: Data.upload_image,
+                      description: Data.description,
+                      nickname: Data.nickname,
+                      home_top_image: Data.home_top_image,
+                    });
                   }}
                   onPressContent={() => {
-                    this.props.navigation.navigate("Detail");
+                    this.props.navigation.navigate("Detail", {
+                      email: Data.id,
+                      firstname: Data.firstname,
+                      lastname: Data.lastname,
+                      nickname: Data.nickname,
+                      profile_image_url: Data.profile_url,
+                      title: Data.title,
+                      upload_image: Data.upload_image,
+                      description: Data.description,
+                      nickname: Data.nickname,
+                      home_top_image: Data.home_top_image,
+                      content: Data.content
+                    });
                   }}
                   onPressReply={() => {
                     this.props.navigation.navigate("Reply");

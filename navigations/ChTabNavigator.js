@@ -5,7 +5,8 @@ import {
   View,
   Platform,
   Animated,
-  Image
+  Image,
+  TouchableOpacity
 } from "react-native";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 import ChannelHomeScreen from "../screens/ChannelHomeScreen";
@@ -13,17 +14,16 @@ import ChannelContentListScreen from "../screens/ChannelContentListScreen";
 import ChannelCommunityScreen from "../screens/ChannelCommunityScreen";
 import ChannelInfoScreen from "../screens/ChannelInfoScreen";
 import { createAppContainer } from "react-navigation";
-import ChannelHomeStack from "../stacks/ChannelHomeStack";
 import TabChild1Screen from "../screens/TabChild1Screen";
 
 import { withCollapsibleForTab } from "react-navigation-collapsible";
 import firebase from "firebase";
-
+import SubscriptionButton from "../components/SubscriptionButton";
 
 const ChTabNavigator = createMaterialTopTabNavigator(
   {
     홈: {
-      screen: ChannelHomeStack
+      screen: ChannelHomeScreen
     },
     글목록: {
       screen: ChannelContentListScreen
@@ -66,75 +66,76 @@ const url_cat =
 // eslint-disable-next-line no-unused-vars
 const GroupImageHeader = ({ navigation, collapsible }) => {
   // eslint-disable-next-line no-unused-vars
-  // console.log(
-  //   "--- PASS PARAMS CHTABNAVIGATORS ---",
-  //   JSON.stringify(navigation.router)
-  // );
-
-  var user = firebase.auth().currentUser;
 
   const { translateY, translateOpacity, translateProgress } = collapsible;
+  var user = firebase.auth().currentUser
 
-  if (navigation.state.params.email) {
-    return (
-      <View style={{ width: "100%", height: "100%", justifyContent: "center" }}>
-        <Image
-          source={{ uri: url_cat }}
-          resizeMode="cover"
+  console.log("--- NAVIGATION PARAMS ---", JSON.stringify(navigation));
+
+  return (
+    <View style={{ width: "100%", height: "100%", justifyContent: "flex-end" }}>
+      <Image
+        source={{ uri: url_cat }}
+        resizeMode="cover"
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          opacity: 0.5
+        }}
+      />
+      <View
+        style={{
+          flexDirection: "row",
+          marginBottom: 10,
+          marginLeft: 10
+          // backgroundColor: "blue"
+        }}
+      >
+        <View
           style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            opacity: 0.5
+            flexDirection: "row",
+            alignItems: "flex-end",
+            paddingTop: 40
           }}
-        />
-        <Animated.Image
-          source={{ uri: url_cat }}
-          resizeMode="cover"
-          style={{
-            transform: [{ scale: translateOpacity }],
-            alignSelf: "center",
-            width: 100,
-            height: 100,
-            borderWidth: 4,
-            borderColor: "white",
-            borderRadius: 50
-          }}
-        />
-        <Text>
-          fdjkslafjdkslajfklsdjfklsajfklsjdaklfjsdalkfjsdklajflk;sdajflksadjlk
-        </Text>
+        >
+          <Animated.Image
+            source={{ uri: navigation.state.params.profile_image_url }}
+            resizeMode="cover"
+            style={{
+              transform: [{ scale: translateOpacity }],
+              alignSelf: "center",
+              width: 100,
+              height: 100,
+              borderWidth: 4,
+              borderColor: "white",
+              borderRadius: 50
+            }}
+          />
+          <Animated.View>
+            <View style={{ justifyContent: "center", marginLeft: 10 }}>
+              <Text
+                style={{ fontSize: 20, fontWeight: "bold", color: "white" }}
+              >
+                {navigation.state.params.nickname}
+              </Text>
+              <Text style={{ fontSize: 10, color: "white" }}>
+                {navigation.state.params.email}
+              </Text>
+            </View>
+          </Animated.View>
+        </View>
+
+        {/* <Animated.View>
+          <TouchableOpacity> */}
+            <View style={{ marginLeft: 40 }}>
+              <SubscriptionButton email={navigation.state.params.email} user={user.email}/>
+            </View>
+          {/* </TouchableOpacity>
+        </Animated.View> */}
       </View>
-    );
-  } else {
-    return (
-      <View style={{ width: "100%", height: "100%", justifyContent: "center" }}>
-        <Image
-          source={{ uri: url_cat }}
-          resizeMode="cover"
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            opacity: 0.5
-          }}
-        />
-        <Animated.Image
-          source={{ uri: url_cat }}
-          resizeMode="cover"
-          style={{
-            transform: [{ scale: translateOpacity }],
-            alignSelf: "center",
-            width: 100,
-            height: 100,
-            borderWidth: 4,
-            borderColor: "white",
-            borderRadius: 50
-          }}
-        />
-      </View>
-    );
-  }
+    </View>
+  );
 };
 
 const collapsibleParams = {

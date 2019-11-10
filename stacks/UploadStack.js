@@ -7,7 +7,8 @@ const UploadStack = createStackNavigator({
     GeoSearch : {
         screen : GeoSearchScreen,
         navigationOptions : {
-            header : null
+            header : null,
+            title: '위치추가'
         }
     },
     Upload : {

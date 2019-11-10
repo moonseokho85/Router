@@ -5,22 +5,24 @@ import {
   View,
   Platform,
   Animated,
-  Image
+  Image,
+  TouchableOpacity
 } from "react-native";
+import { Icon } from "native-base";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 import ChannelHomeScreen from "../screens/ChannelHomeScreen";
 import ChannelContentListScreen from "../screens/ChannelContentListScreen";
 import ChannelCommunityScreen from "../screens/ChannelCommunityScreen";
 import ChannelInfoScreen from "../screens/ChannelInfoScreen";
 import { createAppContainer } from "react-navigation";
-import ChannelHomeStack from "../stacks/ChannelHomeStack";
 import TabChild1Screen from "../screens/TabChild1Screen";
 
 import { withCollapsibleForTab } from "react-navigation-collapsible";
 import firebase from "firebase";
 import MyChannelHomeScreen from "../screens/MyChannelHomeScreen";
-import SubscriptionButton from '../components/SubscriptionButton'
+import SubscriptionButton from "../components/SubscriptionButton";
 import { TouchableHighlight } from "react-native-gesture-handler";
+import MyChannelContentListScreen from "../screens/MyChannelContentListScreen";
 
 const MyChTabNavigator = createMaterialTopTabNavigator(
   {
@@ -28,7 +30,7 @@ const MyChTabNavigator = createMaterialTopTabNavigator(
       screen: MyChannelHomeScreen
     },
     글목록: {
-      screen: TabChild1Screen
+      screen: MyChannelContentListScreen
     },
     커뮤니티: {
       screen: ChannelCommunityScreen
@@ -75,7 +77,7 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
   const { translateY, translateOpacity, translateProgress } = collapsible;
 
   return (
-    <View style={{ width: "100%", height: "100%", justifyContent: "center" }}>
+    <View style={{ width: "100%", height: "100%", justifyContent: "flex-end" }}>
       <Image
         source={{ uri: url_cat }}
         resizeMode="cover"
@@ -86,24 +88,59 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
           opacity: 0.5
         }}
       />
-      <Animated.Image
-        source={{ uri: user.photoURL }}
-        resizeMode="cover"
+      <View
         style={{
-          transform: [{ scale: translateOpacity }],
-          alignSelf: "center",
-          width: 100,
-          height: 100,
-          borderWidth: 4,
-          borderColor: "white",
-          borderRadius: 50
+          flexDirection: "row",
+          marginBottom: 10,
+          marginLeft: 10,
+          // backgroundColor: "blue"
         }}
-      />
-      <Animated.View>
-          <TouchableHighlight onPress={()=>{navigation.navigate('Post')}}>
-              <Text>Post</Text>
-          </TouchableHighlight>
-      </Animated.View>
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "flex-end",
+            paddingTop: 60
+          }}
+        >
+          <Animated.Image
+            source={{ uri: user.photoURL }}
+            resizeMode="cover"
+            style={{
+              transform: [{ scale: translateOpacity }],
+              alignSelf: "center",
+              width: 100,
+              height: 100,
+              borderWidth: 4,
+              borderColor: "white",
+              borderRadius: 50
+            }}
+          />
+          <Animated.View>
+            <View style={{ justifyContent: "center", marginLeft: 10 }}>
+              <Text
+                style={{ fontSize: 20, fontWeight: "bold", color: "white" }}
+              >
+                {user.displayName}
+              </Text>
+              <Text style={{ fontSize: 10, color: "white" }}>{user.email}</Text>
+            </View>
+          </Animated.View>
+        </View>
+
+        <Animated.View>
+          <View style={{ marginLeft: 40 }}>
+            <TouchableOpacity>
+              <Icon
+                name="ios-add-circle"
+                onPress={() => {
+                  navigation.navigate("Post");
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+      </View>
     </View>
   );
 };

@@ -28,6 +28,7 @@ const BottomTabNavigator = createBottomTabNavigator(
         )
       }
     },
+    
     Search: {
       screen: SearchStack,
 
@@ -37,6 +38,7 @@ const BottomTabNavigator = createBottomTabNavigator(
         )
       }
     },
+
     Map: {
       screen: MapStack,
 
@@ -47,6 +49,7 @@ const BottomTabNavigator = createBottomTabNavigator(
         )
       }
     },
+
     Promise: {
       screen: PromiseStack,
 
@@ -56,6 +59,7 @@ const BottomTabNavigator = createBottomTabNavigator(
         )
       }
     },
+
     Info: {
       screen: MyPageStack,
 

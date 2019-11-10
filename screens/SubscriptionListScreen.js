@@ -94,7 +94,7 @@ export default class SubscriptionListScreen extends Component {
       ]
     });
 
-    await console.log(this.state.dataSource);
+    // await console.log(this.state.dataSource);
   }
 
   render() {
