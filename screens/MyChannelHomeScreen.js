@@ -69,7 +69,7 @@ class MyChannelHomeScreen extends Component {
       email: user.email
     };
 
-    await fetch("http://34.82.57.148:8080/react_native_content_select", {
+    await fetch("http://134.82.57.148:8080/react_native_content_select", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +82,7 @@ class MyChannelHomeScreen extends Component {
       .then(resData => this.setState({ fetchData: resData }))
       .catch(error => console.log(error));
 
-    // await console.log("---confirming state---", this.state.fetchData);
+    await console.log("---confirming state---", this.state.fetchData);
   };
 
   renderItem = ({ item }) => (
@@ -91,8 +91,8 @@ class MyChannelHomeScreen extends Component {
       title={item.title}
       // firstname = {this.state.firstname}
       // lastname = {this.state.lastname}
-      upload_image={item.image_url}
-      description={item.content}
+      upload_image={item.image_file}
+      description={item.contents}
       // nickname = {this.state.nickname}
       onPressReply={() => {
         this.props.navigation.navigate("Reply");

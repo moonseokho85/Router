@@ -52,7 +52,7 @@ export default class LoginInputScreen extends Component {
   //     collection.email = this.state.email,
   //     collection.password = this.state.password
 
-  //     var url = "http://34.82.57.148:8080/react_login";
+  //     var url = "http://34.82.57.148:8080/react_native_login";
 
   //     fetch(url, {
   //         method: 'POST', // or 'PUT'

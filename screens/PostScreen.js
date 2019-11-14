@@ -10,7 +10,8 @@ import {
   Alert,
   TouchableOpacity,
   Dimensions,
-  Picker
+  Picker,
+  ActivityIndicator
 } from "react-native";
 
 import firebase from "firebase";
@@ -30,6 +31,7 @@ export default class PostScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isUplading: false,
       email: "",
       title: "",
       image: null,
@@ -144,13 +146,13 @@ export default class PostScreen extends Component {
         RNS3.put(
           {
             // `uri` can also be a file system path (i.e. file://)
-            uri: Data.file,
+            uri: Data.uri,
             name: `${Date.now()}.${user.email}.${this.state.title}.image`,
             type: "image/jpg"
           },
           {
-            keyPrefix: "blog_image/",
-            bucket: "tripco-imagefile",
+            keyPrefix: "content_img/",
+            bucket: "file-image",
             region: "ap-northeast-2",
             accessKey: RNS3_ACCESS_KEY,
             secretKey: RNS3_SECRET_KEY,
@@ -165,7 +167,7 @@ export default class PostScreen extends Component {
             response.body.postResponse.location
           );
           this.state.convertedPhotos.push(response.body.postResponse.location);
-          // console.log("--------------------", this.state.convertedPhotos);
+          console.log("--------------------", this.state.convertedPhotos);
         });
       });
     }
@@ -200,6 +202,10 @@ export default class PostScreen extends Component {
   render() {
     if (this.state.imageBrowserOpen) {
       return <ImageBrowser max={10} callback={this.imageBrowserCallback} />;
+    }
+
+    if (this.state.isUplading === true) {
+      return <ActivityIndicator />;
     }
 
     let { image } = this.state;
@@ -367,7 +373,9 @@ export default class PostScreen extends Component {
                     },
                     {
                       text: "예",
-                      onPress: () => this._Post()
+                      onPress: () => {
+                        this._Post();
+                      }
                     }
                   ],
                   {

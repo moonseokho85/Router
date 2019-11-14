@@ -122,7 +122,9 @@ export default class MyPageScreen extends Component {
         {/* 아이콘 */}
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <TouchableOpacity onPress={() => this.goToNextScreen()}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("MyInfoRevise")}
+            >
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
@@ -150,7 +152,11 @@ export default class MyPageScreen extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('SubscriptionChannel')}>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate("SubscriptionChannel")
+              }
+            >
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
@@ -189,7 +195,9 @@ export default class MyPageScreen extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Notice')}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("Notice")}
+            >
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
@@ -215,7 +223,9 @@ export default class MyPageScreen extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("Setting")}
+            >
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
@@ -248,7 +258,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     padding: 30,
     alignContent: "center", // 상단바 캐릭터
-    flexDirection: "row",
+    flexDirection: "row"
     // backgroundColor: "blue"
   },
   avatar: {

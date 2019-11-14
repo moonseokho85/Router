@@ -26,6 +26,7 @@ import {
 import firebase from "firebase";
 
 import { withCollapsibleForTabChild } from "react-navigation-collapsible";
+import SubscriptionButton from "../components/SubscriptionButton";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -45,21 +46,7 @@ class ChannelHomeScreen extends Component {
   }
 
   async componentDidMount() {
-    const sleep = milliseconds => {
-      return new Promise(resolve => setTimeout(resolve, milliseconds));
-    };
-
-    await sleep(100).then(() => {
-      this._fetchData();
-    });
-
-    // this._fetchData();
-    // console.log("executed function _fetchData");
-    // console.log("---THIS.PROPS---", JSON.stringify(this.props))
-    // const splitedImageData = this.state.fetchData.imge_url;
-    // await sleep(10000).then(console.log("---test---", splitedImageData));
-
-    // await sleep(200).then(console.log("--test--", this.state.fetchData));
+    await this._fetchData();
   }
 
   _fetchData = async () => {
@@ -76,32 +63,74 @@ class ChannelHomeScreen extends Component {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
-      // .then(resjson => console.log("-------------", resjson))
       .then(resData => this.setState({ fetchData: resData }))
       .catch(error => console.log(error));
-
-    // await console.log("---confirming state---", this.state.fetchData);
   };
 
-  renderItem = ({ item }) => (
+  renderItem = ({ item, i }) => (
     <CardComponent
+      key={i}
       profile_image_url={item.profile_url}
       title={item.title}
       // firstname = {this.state.firstname}
       // lastname = {this.state.lastname}
-      upload_image={item.image_url}
-      description={item.content}
-      // nickname = {this.state.nickname}
+      upload_image={item.image_file}
+      description={item.contents}
+      email={item.id}
+      title_no={item.title_no}
+      de_menu={item.de_menu}
+      up_text={item.up_text}
+      down_text={item.down_text}
+      onPressContent={() => {
+        this.props.navigation.navigate("Detail", {
+          email: item.id,
+          firstname: item.firstname,
+          lastname: item.lastname,
+          nickname: item.nickname,
+          profile_image_url: item.profile_url,
+          title: item.title,
+          upload_image: item.upload_image,
+          description: item.description,
+          nickname: item.nickname,
+          home_top_image: item.home_top_image,
+          content: item.content
+        });
+      }}
       onPressReply={() => {
         this.props.navigation.navigate("Reply");
       }}
     />
   );
 
+  _listHeaderComponent = () => {
+    return <SubscriptionButton fetchData={this.state.fetchData} />;
+  };
+
+  _listFooterComponent = () => {
+    return (
+      <TouchableOpacity>
+        <View
+          style={{
+            backgroundColor: "#fff",
+            alignItems: "center",
+            borderRadius: 20,
+            padding: 10,
+            borderWidth: 1,
+            borderColor: "grey",
+            width: "100%"
+          }}
+        >
+          <Text style={{ fontSize: 16, color: "grey", fontWeight: "bold" }}>
+            더 보기
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   render() {
-    console.log("---props test---", this.state.fetchData);
-    var user = firebase.auth().currentUser;
-    const { animatedY, onScroll } = this.props.collapsible;    // console.log(this.props)
+    const { animatedY, onScroll } = this.props.collapsible; // console.log(this.props)
+    // console.log("---fetchdata.follow---", this.state.fetchData[0].follow);
 
     return (
       <AnimatedFlatList
@@ -111,6 +140,10 @@ class ChannelHomeScreen extends Component {
         keyExtractor={(item, index) => String(index)}
         onScroll={onScroll}
         _mustAddThis={animatedY}
+        ListHeaderComponent={() => {
+          return <SubscriptionButton fetchData={this.state.fetchData} />;
+        }}
+        ListFooterComponent={this._listFooterComponent}
       />
     );
   }

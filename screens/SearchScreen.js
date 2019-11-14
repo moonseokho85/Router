@@ -138,13 +138,14 @@ export default class SearchScreen extends Component {
                 />
               </TouchableOpacity>
             );
+            
           }}
           columnWrapperStyle={{
             justifyContent: "center",
             alignItems: "center"
           }}
           ItemSeparatorComponent={this.renderSeparator}
-          // ListHeaderComponent={this.renderHeader}
+          ListHeaderComponent={this.renderHeader}
           numColumns={2}
           keyExtractor={(item, index) => index.toString()}
         />

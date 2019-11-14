@@ -35,13 +35,44 @@ export default class CardCompnent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Reply: ""
+      email: "",
+      user: "",
+      title_no: "",
+      de_menu: "",
+      comment: ""
     };
   }
 
-  render() {
-    // console.log("--- CARD COMPONENT THIS.PROPS ---", this.props);
+  componentDidMount() {
+    this.setState({
+      email: this.props.email,
+      user: this.props.user,
+      title_no: this.props.title_no,
+      de_menu: this.props.de_menu
+    });
+  }
 
+  _sendComment = () => {
+    fetch("http://34.82.57.148:8080/react_native_replepost", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        user: this.state.user,
+        title_no: this.state.title_no,
+        de_menu: this.state.de_menu,
+        comment: this.state.comment
+      })
+    })
+      .then(res => res.json())
+      .then(resData => this.setState({ fetchData: resData }))
+      .catch(error => console.log(error));
+  };
+
+  render() {
     return (
       <Card>
         <CardItem>
@@ -128,18 +159,19 @@ export default class CardCompnent extends Component {
         <Item>
           <Input
             placeholder="댓글 달기"
-            onChangeText={Reply => {
-              this.setState({ Reply });
+            onChangeText={comment => {
+              this.setState({ comment });
             }}
           />
-          <Icon
-            active
-            name="swap"
-            onPress={() => {
-              // this._Reply();
-              Alert.alert();
-            }}
-          />
+          <TouchableOpacity>
+            <Icon
+              active
+              name="swap"
+              onPress={() => {
+                this._sendComment();
+              }}
+            />
+          </TouchableOpacity>
         </Item>
       </Card>
     );

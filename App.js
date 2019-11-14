@@ -24,6 +24,10 @@ import ChannelScreen from "./screens/ChannelScreen";
 import PostScreen from "./screens/PostScreen";
 import ChAppTabNavigator from "./navigations/ChTabNavigator";
 import MyChTabNavigator from "./navigations/MyChTabNavigator";
+import {setExpoStatusBarHeight} from 'react-navigation-collapsible';
+import Constants from 'expo-constants';
+
+setExpoStatusBarHeight(Constants.statusBarHeight);
 
 firebase.initializeApp(firebaseConfig);
 

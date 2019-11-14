@@ -10,6 +10,7 @@ import SubscriptionListScreen from "../screens/SubscriptionListScreen";
 // import ChTabNavigator from "../navigations/ChTabNavigator";
 import MyChTabNavigator from "../navigations/MyChTabNavigator";
 import UploadStack from "../stacks/UploadStack";
+import MyInfoScreen from "../screens/MyInfoScreen";
 // import MyChannelAppStack from "./MyChannelStack";
 
 const MyPageStack = createStackNavigator({
@@ -35,6 +36,13 @@ const MyPageStack = createStackNavigator({
 
     navigationOptions: {
       header: null
+    }
+  },
+
+  MyInfoRevise: {
+    screen : MyInfoScreen,
+    navigationOptions: {
+      title: '내 정보 수정'
     }
   },
 

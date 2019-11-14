@@ -68,9 +68,9 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
   // eslint-disable-next-line no-unused-vars
 
   const { translateY, translateOpacity, translateProgress } = collapsible;
-  var user = firebase.auth().currentUser
+  var user = firebase.auth().currentUser;
 
-  console.log("--- NAVIGATION PARAMS ---", JSON.stringify(navigation));
+  // console.log("--- NAVIGATION PARAMS ---", JSON.stringify(navigation));
 
   return (
     <View style={{ width: "100%", height: "100%", justifyContent: "flex-end" }}>
@@ -125,14 +125,6 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
             </View>
           </Animated.View>
         </View>
-
-        {/* <Animated.View>
-          <TouchableOpacity> */}
-            <View style={{ marginLeft: 40 }}>
-              <SubscriptionButton email={navigation.state.params.email} user={user.email}/>
-            </View>
-          {/* </TouchableOpacity>
-        </Animated.View> */}
       </View>
     </View>
   );

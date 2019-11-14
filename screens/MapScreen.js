@@ -12,6 +12,9 @@ import * as Permissions from "expo-permissions";
 import CurrentLocationButton from "../components/CurrentLocationButton";
 import { Ionicons } from "@expo/vector-icons";
 
+import ClusterMarker from "../components/ClusterMarker";
+import { getCluster } from "../utils/MapUtils";
+
 export default class MapScreen extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
@@ -23,7 +26,14 @@ export default class MapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      region: null
+      region: null,
+      fetchData: [
+        { lat: 36.363091, lng: 127.3758221, title: "맛잇어djfksljfkdslajfklsdjfklsdajflkjsdalk;fjkl;dsajflk;sadjfklsdajlkfjsdlkfjslkajfksajk", content: "맛잇는 가게" },
+        { lat: 36.364091, lng: 127.3758221, title: "맛잇어", content: "맛잇는 가게" },
+        { lat: 36.365091, lng: 127.3758221, title: "맛잇어", content: "맛잇는 가게" },
+        { lat: 36.366091, lng: 127.3758221, title: "맛잇어", content: "맛잇는 가게" },
+        { lat: 36.367091, lng: 127.3758221, title: "맛잇어", content: "맛잇는 가게" }
+      ]
     };
     this._getLocationAsync();
   }
@@ -57,6 +67,7 @@ export default class MapScreen extends Component {
       latitudeDelta: 0.01,
       longitudeDelta: 0.01
     };
+
     await this.setState({ region: region });
   };
 
@@ -67,6 +78,10 @@ export default class MapScreen extends Component {
       latitudeDelta,
       longitudeDelta
     } = this.state.region;
+
+    console.log("centerMap clicked")
+    console.log(latitude)
+
     this.map.animateToRegion({
       latitude,
       longitude,
@@ -75,7 +90,48 @@ export default class MapScreen extends Component {
     });
   }
 
+  renderMarker = (marker, index) => {
+    const key = index + marker.geometry.coordinates[0];
+
+    // If a cluster
+    if (marker.properties) {
+      return (
+        <MapView.Marker
+          key={key}
+          coordinate={{
+            latitude: marker.geometry.coordinates[1],
+            longitude: marker.geometry.coordinates[0]
+          }}
+        >
+          <ClusterMarker count={marker.properties.point_count} />
+        </MapView.Marker>
+      );
+    }
+    // If a single marker
+    return (
+      <MapView.Marker
+        key={key}
+        coordinate={{
+          latitude: marker.geometry.coordinates[1],
+          longitude: marker.geometry.coordinates[0]
+        }}
+        title={marker.geometry.coordinates[2]}
+        description={marker.geometry.coordinates[3]}
+      />
+    );
+  };
+
   render() {
+    const { region } = this.state;
+
+    const allCoords = this.state.fetchData.map(c => ({
+      geometry: {
+        coordinates: [c.lng, c.lat, c.title, c.content]
+      }
+    }));
+
+    const cluster = getCluster(allCoords, region);
+
     return (
       <View style={styles.container}>
         <CurrentLocationButton
@@ -94,51 +150,11 @@ export default class MapScreen extends Component {
             this.map = map;
           }}
           style={styles.mapStyle}
+          onRegionChangeComplete={region => this.setState({ region })} // centerMap과 충돌
         >
-          <Marker
-            coordinate={{
-              latitude: 36.3671979,
-              longitude: 127.4362689
-            }}
-            cluster={false}
-            // title="My Location"
-            // description="Here I am"
-          />
-          <Marker
-            coordinate={{
-              latitude: 37.3671979,
-              longitude: 127.4362689
-            }}
-            cluster={false}
-            // title="My Location"
-            // description="Here I am"
-          />
-          <Marker
-            coordinate={{
-              latitude: 38.3671979,
-              longitude: 127.4362689
-            }}
-            cluster={false}
-            // title="My Location"
-            // description="Here I am"
-          />
-          <Marker
-            coordinate={{
-              latitude: 39.3671979,
-              longitude: 127.4362689
-            }}
-            cluster={false}
-            // title="My Location"
-            // description="Here I am"
-          />
-          <Marker
-            coordinate={{
-              latitude: 36.3671979,
-              longitude: 127.4362689
-            }}
-            // title="My Location"
-            // description="Here I am"
-          />
+          {cluster.markers.map((marker, index) =>
+            this.renderMarker(marker, index)
+          )}
         </MapView>
       </View>
     );
@@ -179,6 +195,7 @@ const styles = StyleSheet.create({
   },
   mapStyle: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height
+    height: Dimensions.get("window").height,
+    ...StyleSheet.absoluteFill
   }
 });
