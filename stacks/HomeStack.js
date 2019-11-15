@@ -11,6 +11,7 @@ import SubscriptionListScreen from "../screens/SubscriptionListScreen";
 import ReplyScreen from "../screens/ReplyScreen";
 import ContentDetailScreen from "../screens/ContentDetailScreen";
 import ChTabNavigator from "../navigations/ChTabNavigator";
+import CreatorRequestScreen from "../screens/CreatorRequestScreen";
 
 const HomeStack = createStackNavigator(
   {
@@ -37,6 +38,13 @@ const HomeStack = createStackNavigator(
 
       navigationOptions: {
         header: null
+      }
+    },
+
+    CreatorRequest: {
+      screen: CreatorRequestScreen,
+      navigationOptions: {
+        title: "요청"
       }
     },
 

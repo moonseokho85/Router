@@ -113,8 +113,6 @@ class PromiseWaitingScreen extends Component {
   );
 
   _ListHeaderComponent = () => {
-
-    console.log('--- promisewaitingScreen this.props.navigation params ---', this.props.navigation )
     return (
       <View
         style={{

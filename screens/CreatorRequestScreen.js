@@ -9,19 +9,62 @@ import {
   TouchableOpacity
 } from "react-native";
 import { Chip } from "react-native-paper";
+import { Ionicons } from "@expo/vector-icons";
+import { Thumbnail } from "native-base";
+import firebase from "firebase";
 
-export default class RequestScreen extends Component {
+export default class CreatorRequestScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
       description: "",
-      money: ""
+      money: 0,
+      focused: false
     };
   }
   render() {
+    var user = firebase.auth().currentUser;
     return (
       <View style={styles.container}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <View style={{ margin: 5 }}>
+            <Thumbnail
+              square
+              large
+              source={{
+                uri: user.photoURL
+              }}
+              style={{
+                borderRadius: 10
+              }}
+            />
+          </View>
+          <View style={{ margin: 5 }}>
+            <Ionicons name="md-arrow-round-forward" size={45} color="orange" />
+          </View>
+          <View style={{ margin: 5 }}>
+            <Thumbnail
+              square
+              large
+              source={{
+                uri: this.props.navigation.getParam("profile_image_url")
+              }}
+              style={{
+                borderRadius: 10
+              }}
+            />
+          </View>
+        </View>
+        <View>
+          <Text>{this.props.navigation.getParam("email")}</Text>
+        </View>
         <View style={{ margin: 5, width: Dimensions.get("window").width - 10 }}>
           <TextInput
             style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
@@ -34,10 +77,11 @@ export default class RequestScreen extends Component {
             style={{ height: 200, borderColor: "gray", borderWidth: 1 }}
             onChangeText={text => this.setState({ description: text })}
             multiline={true}
+            scrollEnabled={true}
             placeholder="내용"
           />
         </View>
-        {/* <ScrollView
+        <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ justifyContent: "space-evenly" }}
@@ -60,7 +104,8 @@ export default class RequestScreen extends Component {
           >
             + 10000
           </Chip>
-        </ScrollView> */}
+          <Chip onPress={() => this.setState({ money: 0 })}>Reset</Chip>
+        </ScrollView>
         <View style={{ margin: 5, width: Dimensions.get("window").width - 10 }}>
           <TextInput
             style={{
@@ -72,6 +117,7 @@ export default class RequestScreen extends Component {
             onChangeText={text => this.setState({ money: text })}
             keyboardType="numeric"
             placeholder="계약금"
+            value={`${this.state.money}`}
           />
         </View>
         <TouchableOpacity

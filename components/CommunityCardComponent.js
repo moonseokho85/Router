@@ -22,8 +22,6 @@ import {
 } from "native-base";
 import LikeButton from "./LikeButton";
 import Slider from "./Slider";
-import { Chip } from "react-native-paper";
-import { ScrollView } from "react-native-gesture-handler";
 
 const images = [
   "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
@@ -33,7 +31,7 @@ const images = [
   "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
 ];
 
-export default class CardCompnent extends Component {
+export default class CommunityCardComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,8 +39,7 @@ export default class CardCompnent extends Component {
       user: "",
       title_no: "",
       de_menu: "",
-      comment: "",
-      focused: false
+      comment: ""
     };
   }
 
@@ -91,8 +88,7 @@ export default class CardCompnent extends Component {
             </TouchableOpacity>
             <Body>
               <Text>
-                {this.props.firstname}
-                {this.props.lastname}
+                {this.props.nickname}
               </Text>
               <Text note>Jan 21, 2019</Text>
             </Body>
@@ -105,13 +101,18 @@ export default class CardCompnent extends Component {
               <Text>{this.props.title}</Text>
             </Body>
           </CardItem>
+          <CardItem>
+            <Text numberOfLines={3}>
+              {this.props.description}
+            </Text>
+          </CardItem>
         </TouchableOpacity>
 
         <CardItem cardBody>
           <Slider images={this.props.upload_image} />
         </CardItem>
 
-        <TouchableOpacity onPress={this.props.onPressContent}>
+        {/* <TouchableOpacity onPress={this.props.onPressContent}>
           <CardItem style={{ height: 50 }}>
             <Left>
               <Text>{this.props.likes} likes</Text>
@@ -126,21 +127,16 @@ export default class CardCompnent extends Component {
                 up_text={this.props.up_text}
                 down_text={this.props.down_text}
               />
-              {/* <Button transparent>
+              <Button transparent>
               <Icon name='ios-chatbubbles' style={{ color:'black' }}/>
             </Button>
             <Button transparent>
               <Icon name='ios-send' style={{ color:'black' }}/>
-            </Button> */}
+            </Button>
             </Right>
           </CardItem>
 
-          <CardItem>
-            <Text numberOfLines={3}>
-              <Text style={{ fontWeight: "900" }}>{this.props.nickname}</Text>
-              {this.props.description}
-            </Text>
-          </CardItem>
+          
         </TouchableOpacity>
 
         <Button
@@ -152,31 +148,22 @@ export default class CardCompnent extends Component {
           <Text>댓글 보기</Text>
         </Button>
         <Item>
-          <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 10 }}
-          >
-            <Input
-              style={{ width: 100 }}
-              placeholder="댓글 달기"
-              onChangeText={comment => {
-                this.setState({ comment });
-              }}
-              multiline={true}
-              onFocus={() => {
-                this.setState({ focused: true });
+          <Input
+            placeholder="댓글 달기"
+            onChangeText={comment => {
+              this.setState({ comment });
+            }}
+          />
+          <TouchableOpacity>
+            <Icon
+              active
+              name="swap"
+              onPress={() => {
+                this._sendComment();
               }}
             />
-            <TouchableOpacity>
-              <Icon
-                active
-                name="swap"
-                onPress={() => {
-                  this._sendComment();
-                }}
-              />
-            </TouchableOpacity>
-          </View>
-        </Item>
+          </TouchableOpacity>
+        </Item> */}
       </Card>
     );
   }

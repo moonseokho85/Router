@@ -126,7 +126,14 @@ class HomeScreen extends Component {
     var data = {
       email: user.email
     };
-    this.setState({ isLoading: true, refreshing: true });
+
+    this.setState({
+      isLoading: true,
+      refreshing: true,
+      fetchData: [],
+      following: []
+    });
+    
     fetch("http://34.82.57.148:8080/react_native_content_allselect", {
       method: "POST",
       headers: {
@@ -280,7 +287,6 @@ class HomeScreen extends Component {
 
   render() {
     const { paddingHeight, animatedY, onScroll } = this.props.collapsible;
-    console.log(this.state.fetchData);
 
     return (
       <AnimatedFlatList

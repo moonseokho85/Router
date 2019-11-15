@@ -1,29 +1,150 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import React, { Component } from "react";
+import { Text, StyleSheet, View, Animated, FlatList } from "react-native";
 
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from "react-native-vector-icons/Ionicons";
+import { withCollapsibleForTabChild } from "react-navigation-collapsible";
+import CommunityCardComponent from "../components/CommunityCardComponent";
+import firebase from "firebase";
+import {
+  Avatar,
+  Button,
+  Card,
+  Title,
+  Paragraph,
+  Appbar,
+  IconButton
+} from "react-native-paper";
 
-export default class ChannelCommunityScreen extends Component {
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-    static navigationOptions = {
-        tabBarIcon: ({ tintColor }) => (
-            <Icon name='ios-people' style={{ color: tintColor }} />
-        )
-    }
+class ChannelCommunityScreen extends Component {
+  static navigationOptions = {
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="ios-people" style={{ color: tintColor }} />
+    )
+  };
 
-    render() {
-        return (
-            <View style = {styles.container}>
-                <Text> textInComponent </Text>
-            </View>
-        )
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      mockData: [
+        {
+          title: "공지사항1",
+          description: "공지사항1입니다.",
+          image: [
+            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
+            
+          ]
+        },
+        {
+          title: "공지사항2",
+          description: "공지사항2입니다.",
+          image: [
+            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
+            
+          ]
+        },
+        {
+          title: "공지사항3",
+          description: "공지사항3입니다.",
+          image: [
+            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
+            
+          ]
+        },
+        {
+          title: "공지사항4",
+          description: "공지사항4입니다.",
+          image: [
+            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
+            
+          ]
+        }
+      ],
+      fetchData: []
+    };
+  }
+
+  async componentDidMount() {
+    await this._fetchData();
+  }
+
+  _fetchData = () => {
+    var data = {
+      email: this.props.screenProps.navigation.state.params.email
+    };
+
+    fetch("http://34.82.57.148:8080/react_native_content_select", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(resData => this.setState({ fetchData: resData }))
+      .catch(error => console.log(error));
+  };
+
+  _ListHeaderComponent = () => {
+    return (
+      <View
+        style={{
+          marginLeft: 10,
+          marginRight: 10,
+          marginTop: 5,
+          marginBottom: 5
+        }}
+      >
+        <Card
+          onPress={() => {
+            this.props.navigation.navigate("CreatorRequest", {
+              email: this.props.navigation.state.params.email,
+              profile_image_url: this.props.navigation.state.params.profile_image_url
+            });
+          }}
+        >
+          <Card.Title
+            title="요청하기"
+            left={props => (
+              <Icon {...props} name="md-add-circle" color="orange" />
+            )}
+          />
+        </Card>
+      </View>
+    );
+  };
+
+  renderItem = ({ item }) => {
+    var user = firebase.auth().currentUser;
+    return (
+      <CommunityCardComponent
+        // onPressThumnail={}
+        profile_image_url={user.photoURL}
+        nickname={user.displayName}
+        // onPressContent={}
+        title={item.title}
+        description={item.description}
+        upload_image={item.image}
+      />
+    );
+  };
+
+  render() {
+    const { animatedY, onScroll } = this.props.collapsible;
+    return (
+      <AnimatedFlatList
+        style={{ flex: 1 }}
+        data={this.state.mockData}
+        renderItem={this.renderItem}
+        keyExtractor={(item, index) => String(index)}
+        onScroll={onScroll}
+        _mustAddThis={animatedY}
+        ListHeaderComponent={this._ListHeaderComponent}
+      />
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-    container : {
-        flex : 1,
-        // justifyContent : 'center',
-        // alignContent : 'center'
-    }
-})
+export default withCollapsibleForTabChild(ChannelCommunityScreen);

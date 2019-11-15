@@ -103,7 +103,17 @@ class ChannelHomeScreen extends Component {
   );
 
   _listHeaderComponent = () => {
-    return <SubscriptionButton fetchData={this.state.fetchData} />;
+    return (
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          height: 100
+        }}
+      >
+        <SubscriptionButton fetchData={this.state.fetchData} />
+      </View>
+    );
   };
 
   _listFooterComponent = () => {

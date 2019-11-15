@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, Animated, FlatList} from "react-native";
-
+import { Animated, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import ListComponent from "../components/ListComponent";
-import { Container, Content, List } from "native-base";
 import { withCollapsibleForTabChild } from "react-navigation-collapsible";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
-
 
 class ChannelContentListScreen extends Component {
   constructor(props) {
@@ -24,17 +21,7 @@ class ChannelContentListScreen extends Component {
   };
 
   async componentDidMount() {
-    // const sleep = milliseconds => {
-    //   return new Promise(resolve => setTimeout(resolve, milliseconds));
-    // };
-
-    // sleep(200).then(() => {
-    //   this._fetchData();
-    // });
-
     await this._fetchData();
-
-    // console.log(this.state.fetchData);
   }
 
   _fetchData = () => {
@@ -65,7 +52,6 @@ class ChannelContentListScreen extends Component {
 
   render() {
     const { animatedY, onScroll } = this.props.collapsible;
-    // console.log("--- MY CHANNEL CONTENT LIST SCREEN FETCHDATA ---", this.state.fetchData);
 
     return (
       <AnimatedFlatList
@@ -79,13 +65,5 @@ class ChannelContentListScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignContent: "center"
-  }
-});
 
 export default withCollapsibleForTabChild(ChannelContentListScreen);

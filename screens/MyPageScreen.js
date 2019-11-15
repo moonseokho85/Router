@@ -18,7 +18,6 @@ export default class MyPageScreen extends Component {
 
   render() {
     var user = firebase.auth().currentUser;
-    console.log("--- USER INFO ---", user);
 
     return (
       <View style={styles.container}>
@@ -58,20 +57,21 @@ export default class MyPageScreen extends Component {
                 style={{
                   width: 70,
                   height: 20,
-                  borderRadius: 2,
                   backgroundColor: "white",
-                  borderWidth: 2,
-                  borderColor: "orange",
                   justifyContent: "center",
                   alignItems: "center",
                   margin: 10
                 }}
               >
-                <Text
+                {/* <Text
                   style={{ fontSize: 10, fontWeight: "bold", color: "orange" }}
                 >
                   로그 아웃
-                </Text>
+                </Text> */}
+                <Image
+                  source={require("../assets/logout.jpg")}
+                  style={{ height: 20, width: 20 }}
+                />
               </View>
             </TouchableOpacity>
           </View>
@@ -122,15 +122,13 @@ export default class MyPageScreen extends Component {
         {/* 아이콘 */}
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("MyInfoRevise")}
-            >
+            <TouchableOpacity onPress={() => this.goToNextScreen()}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
                   source={{
                     uri:
-                      "https://housing.umn.edu/sites/housing.umn.edu/files/housing_contract.png"
+                      "https://postfiles.pstatic.net/MjAxOTExMTJfMjgx/MDAxNTczNTQwNzYwMjA2.o5yFz6Xi6s3iaovr1ChULMAPaANS4zScf2720lUKNNwg.qZkFb4vr871dBjIYZy-fpRoy3LwR8fwy9kNzQY60mkkg.JPEG.operkop00/pencil.jpg?type=w773"
                   }}
                 />
                 <Text style={styles.info}>내 정보 수정</Text>
@@ -145,7 +143,7 @@ export default class MyPageScreen extends Component {
                   style={styles.icon}
                   source={{
                     uri:
-                      "https://devitt-forand.com/wp-content/uploads/2018/05/person-icon.png"
+                      "https://postfiles.pstatic.net/MjAxOTExMTJfNjAg/MDAxNTczNTQxOTE5MjU4.aWzN-Wh8JVnuiQI2pdX79EmbPiyRuBWIFS5mPkKssukg.yVcWTXbNkQ4RXFWQg4ldZRIrm8I_XXMtTnLW4ySCc4Eg.JPEG.operkop00/person4.jpg?type=w773"
                   }}
                 />
                 <Text style={styles.info}>내 채널</Text>
@@ -162,7 +160,7 @@ export default class MyPageScreen extends Component {
                   style={styles.icon}
                   source={{
                     uri:
-                      "https://cdn3.iconfinder.com/data/icons/love-and-valentine-3-1/136/117-512.png"
+                      "https://postfiles.pstatic.net/MjAxOTExMTJfMTY1/MDAxNTczNTQyODYxMjQ0.FwXJi9lty562A7C6-rReMWD18vmXb5tEuZ1guWebCwgg.pmtd3fpUjFokcJCcHsxHykMemZ84e7LVuDlUjWBtcgcg.JPEG.operkop00/%EA%B5%AC%EB%8F%85123.jpg?type=w773"
                   }}
                 />
                 <Text style={styles.info}>구독채널</Text>
@@ -175,7 +173,7 @@ export default class MyPageScreen extends Component {
                   style={styles.icon}
                   source={{
                     uri:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa0icr8neC2LBtRWa39puWKK6hwn3EBcufol55fXmVtgoCgg_tkQ"
+                      "https://postfiles.pstatic.net/MjAxOTExMTRfMTcw/MDAxNTczNjk4NTI4NDM1.xXjU3fvObLwm_wdf2i04kq0AXnXj0RjQYGLmwxrnQ7Ug.gT0PsTvM29ap9VW1_a5qGE8FlCwHxtSdUp0X60rKgZog.JPEG.operkop00/clock2131231.jpg?type=w773"
                   }}
                 />
                 <Text style={styles.info}>알람</Text>
@@ -188,7 +186,7 @@ export default class MyPageScreen extends Component {
                   style={styles.icon}
                   source={{
                     uri:
-                      "http://www.pkicon.com/icons/13193/Black-Gift-Box-256.png"
+                      "https://postfiles.pstatic.net/MjAxOTExMTRfMTQ0/MDAxNTczNjk1NzU4NzU3.samnaa3hFeG6-ZD6fTV3WklH_XgiIOXYMJYyNgLOdtog.wAKIy95FmcVW2lvLzuWx0tBV1-DJIzUkqs4avbf6IxQg.JPEG.operkop00/message4.jpg?type=w773"
                   }}
                 />
                 <Text style={styles.info}>메시지</Text>
@@ -203,7 +201,7 @@ export default class MyPageScreen extends Component {
                   style={styles.icon}
                   source={{
                     uri:
-                      "https://postfiles.pstatic.net/MjAxOTEwMTVfMTA4/MDAxNTcxMTI1OTQ2NDU1.UdZp4TRqvw4w7sqJ9Ek_22jiDkJaXYs0MGoTKRwNs9Yg.2Ca4ES8_4JCU-cgiSGu0k3u_17xX5Ot4y6cjil9O6D4g.JPEG.operkop00/megaphone.jpg?type=w773"
+                      "https://postfiles.pstatic.net/MjAxOTExMTRfODIg/MDAxNTczNjk2NDM2MjU1.5HxfHPLf5I18QfCctdWk_9DGSffaedfmtZiMRmUBsDwg.A4cahE5NeRFOn4qx5vteaB734VIN-jpouH9urQoVUZAg.JPEG.operkop00/meph2.jpg?type=w773"
                   }}
                 />
                 <Text style={styles.info}>공지사항</Text>
@@ -216,7 +214,7 @@ export default class MyPageScreen extends Component {
                   style={styles.icon}
                   source={{
                     uri:
-                      "http://icons.iconarchive.com/icons/graphicloads/100-flat/256/phone-icon.png"
+                      "https://postfiles.pstatic.net/MjAxOTExMTRfNzIg/MDAxNTczNjk3MzM5ODg2.xipzdXW0hS3VNyfpewwar_wbNnGz5NgsMPb7vGb1uKsg.B118heIzqvEY4-UwxsbLnDTQq_rz1TttDtnx9PwTk30g.JPEG.operkop00/center123.jpg?type=w773"
                   }}
                 />
                 <Text style={styles.info}>고객센터</Text>
@@ -231,7 +229,7 @@ export default class MyPageScreen extends Component {
                   style={styles.icon}
                   source={{
                     uri:
-                      "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c17152c1-e3e6-425b-a192-250df05de8e0/dairhoj-e99c5ac0-06a9-45b2-9afe-50233848f75f.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2MxNzE1MmMxLWUzZTYtNDI1Yi1hMTkyLTI1MGRmMDVkZThlMFwvZGFpcmhvai1lOTljNWFjMC0wNmE5LTQ1YjItOWFmZS01MDIzMzg0OGY3NWYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.BLO7tUFwteJxVTovxhWQBcgOWUs5Otr1u0aJAEu9RWQ"
+                      "https://postfiles.pstatic.net/MjAxOTExMTJfMTkx/MDAxNTczNTM3NzI5MDA5.Cdr8Zs6Yj2VQ7Ps-3gbAfPQJ54kgKkzBqmngTN61mKYg.okZ0YlTt7mPIfl-K4yFFNSjS5xzeMA6FhrpvujGHnOYg.JPEG.operkop00/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95.jpg?type=w773"
                   }}
                 />
                 <Text style={styles.info}>설정</Text>
@@ -314,7 +312,7 @@ const styles = StyleSheet.create({
   },
   info: {
     fontSize: 10,
-    marginTop: 5,
+    marginTop: 7,
     color: "#696969" // 아이콘 텍스트
   }
 });

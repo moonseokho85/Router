@@ -38,6 +38,7 @@
     "react-native-image-picker": "^1.1.0",
     "react-native-image-slider-box": "^1.0.5",
     "react-native-ionicons": "^4.6.3",
+    "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-lahk-marquee-label": "^1.1.4",
     "react-native-map-clustering": "^2.0.2",
     "react-native-maps": "~0.25.0",

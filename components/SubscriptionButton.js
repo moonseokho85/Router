@@ -42,7 +42,6 @@ export default class SubscriptionButton extends React.Component {
     const { subscribed } = this.state;
     const colorValue = subscribed ? "grey" : "orange";
     const subscriptionValue = subscribed ? "1" : "0";
-
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.subscriptionImage}>

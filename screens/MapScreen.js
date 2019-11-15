@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, Dimensions, Platform } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
-// import MapView from "react-native-map-clustering";
-// import { ClusterMap } from "react-native-cluster-map";
 import Constants from "expo-constants";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
@@ -14,6 +12,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 import ClusterMarker from "../components/ClusterMarker";
 import { getCluster } from "../utils/MapUtils";
+
+import firebase from "firebase";
 
 export default class MapScreen extends Component {
   static navigationOptions = {
@@ -28,14 +28,47 @@ export default class MapScreen extends Component {
     this.state = {
       region: null,
       fetchData: [
-        { lat: 36.363091, lng: 127.3758221, title: "맛잇어djfksljfkdslajfklsdjfklsdajflkjsdalk;fjkl;dsajflk;sadjfklsdajlkfjsdlkfjslkajfksajk", content: "맛잇는 가게" },
-        { lat: 36.364091, lng: 127.3758221, title: "맛잇어", content: "맛잇는 가게" },
-        { lat: 36.365091, lng: 127.3758221, title: "맛잇어", content: "맛잇는 가게" },
-        { lat: 36.366091, lng: 127.3758221, title: "맛잇어", content: "맛잇는 가게" },
-        { lat: 36.367091, lng: 127.3758221, title: "맛잇어", content: "맛잇는 가게" }
-      ]
+        {
+          lat: 36.363091,
+          lng: 127.3758221,
+          title:
+            "맛잇어",
+          content: "맛잇는 가게"
+        },
+        {
+          lat: 36.364091,
+          lng: 127.3758221,
+          title: "맛잇어",
+          content: "맛잇는 가게"
+        },
+        {
+          lat: 36.365091,
+          lng: 127.3758221,
+          title: "맛잇어",
+          content: "맛잇는 가게"
+        },
+        {
+          lat: 36.366091,
+          lng: 127.3758221,
+          title: "맛잇어",
+          content: "맛잇는 가게"
+        },
+        {
+          lat: 36.367091,
+          lng: 127.3758221,
+          title: "맛잇어",
+          content: "맛잇는 가게"
+        }
+      ],
+      isLoading: false,
+      refreshing: false,
+      fetchData2:[]
     };
     this._getLocationAsync();
+  }
+
+  async componentDidMount() {
+    await this._fetchData();
   }
 
   // componentWillMount() {
@@ -79,8 +112,8 @@ export default class MapScreen extends Component {
       longitudeDelta
     } = this.state.region;
 
-    console.log("centerMap clicked")
-    console.log(latitude)
+    console.log("centerMap clicked");
+    console.log(latitude);
 
     this.map.animateToRegion({
       latitude,
@@ -89,6 +122,40 @@ export default class MapScreen extends Component {
       longitudeDelta
     });
   }
+
+  _fetchData = () => {
+    var user = firebase.auth().currentUser;
+
+    var data = {
+      email: user.email
+    };
+
+    this.setState({
+      isLoading: true,
+      refreshing: true,
+      fetchData: []
+    });
+
+    fetch("http://34.82.57.148:8080/react_native_content_allselect", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(resData =>
+        this.setState({
+          fetchData2: resData.select,
+          following: resData.following
+        })
+      )
+      .catch(error => console.log(error))
+      .finally(() => {
+        this.setState({ isLoading: false, refreshing: false });
+      });
+  };
 
   renderMarker = (marker, index) => {
     const key = index + marker.geometry.coordinates[0];
@@ -131,7 +198,7 @@ export default class MapScreen extends Component {
     }));
 
     const cluster = getCluster(allCoords, region);
-
+    console.log(this.state.fetchData2);
     return (
       <View style={styles.container}>
         <CurrentLocationButton
