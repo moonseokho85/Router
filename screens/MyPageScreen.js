@@ -63,11 +63,6 @@ export default class MyPageScreen extends Component {
                   margin: 10
                 }}
               >
-                {/* <Text
-                  style={{ fontSize: 10, fontWeight: "bold", color: "orange" }}
-                >
-                  로그 아웃
-                </Text> */}
                 <Image
                   source={require("../assets/logout.jpg")}
                   style={{ height: 20, width: 20 }}

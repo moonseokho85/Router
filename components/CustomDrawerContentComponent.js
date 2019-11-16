@@ -4,7 +4,6 @@ import { Container, Header, Body, Content, Button, Root } from 'native-base';
 import { createDrawerNavigator, DrawerNavigatorItems } from 'react-navigation-drawer'
 
 import firebase from 'firebase'
-// console.log("efewfwef")
 firebase.auth().onAuthStateChanged(
     (user) => console.log("user")
 )

@@ -10,12 +10,6 @@ import {
 import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
 import * as Facebook from "expo-facebook";
-
-import RoundButton from "../components/RoundButton";
-
-// import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
-import GoogleLoginButton from "../components/GoogleLoginButton";
-
 import { ANDROID_CLIENT_ID, FACEBOOK_APP_ID } from "react-native-dotenv";
 
 export default class LoginScreen extends Component {
@@ -108,8 +102,6 @@ export default class LoginScreen extends Component {
   signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
-        // androidClientId:
-          // "1013339342054-4chan0f6dtejcjngkgms5ggpjc75tf8c.apps.googleusercontent.com",
         androidClientId: ANDROID_CLIENT_ID,
         behavior: "web",
         scopes: ["profile", "email"]

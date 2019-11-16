@@ -1,5 +1,4 @@
 import { createStackNavigator } from "react-navigation-stack";
-import ChannelHomeScreen from "../screens/ChannelHomeScreen";
 import ReplyScreen from "../screens/ReplyScreen";
 import MyChannelHomeScreen from "../screens/MyChannelHomeScreen";
 
@@ -21,7 +20,5 @@ const ChannelHomeStack = createStackNavigator({
     }
   }
 });
-
-// export default ChannelHomeStack;
 
 export default withCollapsibleForTabChild(ChannelHomeStack);

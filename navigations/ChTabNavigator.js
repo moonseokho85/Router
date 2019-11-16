@@ -13,12 +13,8 @@ import ChannelHomeScreen from "../screens/ChannelHomeScreen";
 import ChannelContentListScreen from "../screens/ChannelContentListScreen";
 import ChannelCommunityScreen from "../screens/ChannelCommunityScreen";
 import ChannelInfoScreen from "../screens/ChannelInfoScreen";
-import { createAppContainer } from "react-navigation";
-import TabChild1Screen from "../screens/TabChild1Screen";
-
 import { withCollapsibleForTab } from "react-navigation-collapsible";
 import firebase from "firebase";
-import SubscriptionButton from "../components/SubscriptionButton";
 
 const ChTabNavigator = createMaterialTopTabNavigator(
   {
@@ -70,8 +66,6 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
   const { translateY, translateOpacity, translateProgress } = collapsible;
   var user = firebase.auth().currentUser;
 
-  // console.log("--- NAVIGATION PARAMS ---", JSON.stringify(navigation));
-
   return (
     <View style={{ width: "100%", height: "100%", justifyContent: "flex-end" }}>
       <Image
@@ -89,7 +83,6 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
           flexDirection: "row",
           marginBottom: 10,
           marginLeft: 10
-          // backgroundColor: "blue"
         }}
       >
         <View
@@ -109,7 +102,7 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
               height: 100,
               borderWidth: 4,
               borderColor: "white",
-              borderRadius: 50
+              borderRadius: 10
             }}
           />
           <Animated.View>

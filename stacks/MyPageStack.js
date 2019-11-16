@@ -7,11 +7,9 @@ import ReplyScreen from "../screens/ReplyScreen";
 import SettingScreen from "../screens/SettingScreen";
 import NoticeScreen from "../screens/NoticeScreen";
 import SubscriptionListScreen from "../screens/SubscriptionListScreen";
-// import ChTabNavigator from "../navigations/ChTabNavigator";
 import MyChTabNavigator from "../navigations/MyChTabNavigator";
 import UploadStack from "../stacks/UploadStack";
 import MyInfoScreen from "../screens/MyInfoScreen";
-// import MyChannelAppStack from "./MyChannelStack";
 
 const MyPageStack = createStackNavigator({
   MyPage: {

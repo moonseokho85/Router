@@ -30,18 +30,8 @@ class MyChannelContentListScreen extends Component {
     )
   };
 
-  async componentDidMount () {
-    // const sleep = milliseconds => {
-    //   return new Promise(resolve => setTimeout(resolve, milliseconds));
-    // };
-
-    // sleep(200).then(() => {
-    //   this._fetchData();
-    // });
-
-    await this._fetchData()
-
-    
+  async componentDidMount() {
+    await this._fetchData();
   }
 
   _fetchData = () => {
@@ -72,9 +62,7 @@ class MyChannelContentListScreen extends Component {
   );
 
   render() {
-
     const { animatedY, onScroll } = this.props.collapsible;
-    // console.log("--- MY CHANNEL CONTENT LIST SCREEN FETCHDATA ---", this.state.fetchData);
 
     return (
       <AnimatedFlatList
@@ -88,13 +76,5 @@ class MyChannelContentListScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignContent: "center"
-  }
-});
 
 export default withCollapsibleForTabChild(MyChannelContentListScreen);

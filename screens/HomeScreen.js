@@ -95,7 +95,8 @@ class HomeScreen extends Component {
       fetchData: [],
       following: [],
       isLoading: false,
-      refreshing: false
+      refreshing: false,
+      Data: []
     };
   }
 
@@ -133,7 +134,7 @@ class HomeScreen extends Component {
       fetchData: [],
       following: []
     });
-    
+
     fetch("http://34.82.57.148:8080/react_native_content_allselect", {
       method: "POST",
       headers: {
@@ -143,12 +144,13 @@ class HomeScreen extends Component {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
-      .then(resData =>
-        this.setState({
-          fetchData: resData.select,
-          following: resData.following
-        })
-      )
+      // .then(resData =>
+      //   this.setState({
+      //     fetchData: resData.select,
+      //     following: resData.following
+      //   })
+      // )
+      .then(resData => this.setState({Data: resData}))
       .catch(error => console.log(error))
       .finally(() => {
         this.setState({ isLoading: false, refreshing: false });
@@ -239,8 +241,6 @@ class HomeScreen extends Component {
       <CardComponent
         profile_image_url={item.profile_url}
         title={item.title}
-        // firstname = {this.state.firstname}
-        // lastname = {this.state.lastname}
         upload_image={item.image_file}
         description={item.contents}
         email={item.id}
@@ -260,7 +260,7 @@ class HomeScreen extends Component {
             upload_image: item.upload_image,
             description: item.description,
             nickname: item.nickname,
-            home_top_image: item.home_top_image
+            home_top_image: item.main_image_url
           });
         }}
         onPressContent={() => {
@@ -274,7 +274,7 @@ class HomeScreen extends Component {
             upload_image: item.upload_image,
             description: item.description,
             nickname: item.nickname,
-            home_top_image: item.home_top_image,
+            home_top_image: item.main_image_url,
             content: item.content
           });
         }}
@@ -287,11 +287,11 @@ class HomeScreen extends Component {
 
   render() {
     const { paddingHeight, animatedY, onScroll } = this.props.collapsible;
-
+    console.log("---THIS.STATE.DATA---", this.state.Data)
     return (
       <AnimatedFlatList
         style={{ flex: 1 }}
-        data={this.state.fetchData}
+        data={this.state.Data}
         renderItem={this.renderItem}
         keyExtractor={(item, index) => String(index)}
         contentContainerStyle={{ paddingTop: paddingHeight }}
@@ -309,14 +309,5 @@ class HomeScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    // alignContent : 'center',
-    backgroundColor: "white"
-  }
-});
 
 export default withCollapsible(HomeScreen, { iOSCollapsedColor: "red" });

@@ -51,8 +51,6 @@ export default class LikeButton extends React.Component {
     const likeState = !this.state.liked;
     await this.setState({ liked: likeState });
 
-    // console.log("--- like button pressed ---");
-
     fetch("http://34.82.57.148:8080/react_native_like", {
       method: "POST",
       headers: {
@@ -76,8 +74,6 @@ export default class LikeButton extends React.Component {
   unlikeImage = async () => {
     const unlikeState = !this.state.unliked;
     await this.setState({ unliked: unlikeState });
-
-    // console.log("--- like button pressed ---");
 
     fetch("http://34.82.57.148:8080/react_native_like", {
       method: "POST",
@@ -105,8 +101,7 @@ export default class LikeButton extends React.Component {
     const likedcolorValue = liked ? "#fb7777" : "black";
     const unlikedcolorValue = unliked ? "blue" : "black";
     const likeValue = liked ? "1" : "0";
-    // console.log("--- Like Button THIS.PROPS PARAMS ---", this.props);
-
+    
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.likeImage}>
