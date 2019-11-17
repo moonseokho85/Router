@@ -21,7 +21,7 @@ export default class SubscriptionButton extends React.Component {
     const subscriptionState = !this.state.subscribed;
     await this.setState({ subscribed: subscriptionState });
 
-    fetch("http://34.82.57.148:8080/react_native_follow", {
+    await fetch("http://34.82.57.148:8080/react_native_follow", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

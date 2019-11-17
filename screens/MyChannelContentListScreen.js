@@ -34,13 +34,13 @@ class MyChannelContentListScreen extends Component {
     await this._fetchData();
   }
 
-  _fetchData = () => {
+  _fetchData = async () => {
     var user = firebase.auth().currentUser;
     var data = {
       email: user.email
     };
 
-    fetch("http://34.82.57.148:8080/react_native_content_select", {
+    await fetch("http://34.82.57.148:8080/react_native_content_select", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

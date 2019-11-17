@@ -24,12 +24,12 @@ class ChannelContentListScreen extends Component {
     await this._fetchData();
   }
 
-  _fetchData = () => {
+  _fetchData = async () => {
     var data = {
       email: this.props.screenProps.navigation.state.params.email
     };
 
-    fetch("http://34.82.57.148:8080/react_native_content_select", {
+    await fetch("http://34.82.57.148:8080/react_native_content_select", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

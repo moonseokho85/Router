@@ -17,6 +17,8 @@ import firebase from "firebase";
 
 import { withCollapsible } from "react-navigation-collapsible";
 
+import * as _ from "lodash";
+
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 class HomeScreen extends Component {
@@ -96,7 +98,8 @@ class HomeScreen extends Component {
       following: [],
       isLoading: false,
       refreshing: false,
-      Data: []
+      Data: [],
+      uniqueFollow: []
     };
   }
 
@@ -119,9 +122,18 @@ class HomeScreen extends Component {
     });
 
     await this._fetchData();
+
+    var follower = this.state.Data.filter(item => {
+      return item.follower == `|${user.email}`;
+    });
+
+    await this.setState({ following: follower });
+
+    var unique = _.uniqBy(this.state.following, "id");
+    await this.setState({ uniqueFollow: unique });
   }
 
-  _fetchData = () => {
+  _fetchData = async () => {
     var user = firebase.auth().currentUser;
 
     var data = {
@@ -135,7 +147,7 @@ class HomeScreen extends Component {
       following: []
     });
 
-    fetch("http://34.82.57.148:8080/react_native_content_allselect", {
+    await fetch("http://34.82.57.148:8080/react_native_content_allselect", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -144,13 +156,7 @@ class HomeScreen extends Component {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
-      // .then(resData =>
-      //   this.setState({
-      //     fetchData: resData.select,
-      //     following: resData.following
-      //   })
-      // )
-      .then(resData => this.setState({Data: resData}))
+      .then(resData => this.setState({ Data: resData }))
       .catch(error => console.log(error))
       .finally(() => {
         this.setState({ isLoading: false, refreshing: false });
@@ -197,17 +203,17 @@ class HomeScreen extends Component {
               paddingEnd: 5
             }}
           >
-            {this.state.mockData.map((Data, i) => {
+            {this.state.uniqueFollow.map((Data, i) => {
               return (
                 <TouchableOpacity
                   key={i}
                   onPress={() =>
                     this.props.navigation.navigate(`CreatorChannel`, {
-                      email: Data.email,
+                      email: Data.id,
                       firstname: Data.firstname,
                       lastname: Data.lastname,
                       nickname: Data.nickname,
-                      profile_image_url: Data.profile_image_url,
+                      profile_image_url: Data.profile_url,
                       title: Data.title,
                       upload_image: Data.upload_image,
                       description: Data.description,
@@ -224,7 +230,7 @@ class HomeScreen extends Component {
                       borderWidth: 2,
                       borderRadius: 10
                     }}
-                    source={{ uri: Data.profile_image_url }}
+                    source={{ uri: Data.profile_url }}
                   />
                 </TouchableOpacity>
               );
@@ -287,7 +293,6 @@ class HomeScreen extends Component {
 
   render() {
     const { paddingHeight, animatedY, onScroll } = this.props.collapsible;
-    console.log("---THIS.STATE.DATA---", this.state.Data)
     return (
       <AnimatedFlatList
         style={{ flex: 1 }}
