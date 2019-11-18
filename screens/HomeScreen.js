@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import {
   View,
   Text,
@@ -8,7 +9,9 @@ import {
   Animated,
   FlatList
 } from "react-native";
+
 import { Container, Content, Thumbnail } from "native-base";
+
 import CardComponent from "../components/CardComponent";
 
 import Icon from "react-native-vector-icons/Ionicons";
@@ -25,76 +28,6 @@ class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mockData: [
-        {
-          email: "tjrgh@naver.com",
-          firstname: "Logan",
-          lastname: "Moon",
-          nickname: "Octopus",
-          home_top_image:
-            "https://cdn.pixabay.com/photo/2015/09/02/12/37/camera-918565__340.jpg",
-          profile_image_url:
-            "https://www.seoul.go.kr/res_newseoul/images/seoul/img_intro1.png",
-          title: "유성천에 다녀왔어요",
-          upload_image:
-            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
-          description:
-            "도나스를 사먹고 유성천 다리를 건너시면 본격적으로 유성시장으로 들어옵니다. 날이 좋으니 유성천 뷰가 참 좋네요. 다리는 도나스 가게 골목으로 나오시면 바로 있습니다."
-        },
-        {
-          email: "clans@naver.com",
-          firstname: "chimoon",
-          lastname: "Song",
-          nickname: "chichi",
-          profile_image_url:
-            "https://bootdey.com/img/Content/avatar/avatar2.png",
-          title: "유성천에 다녀왔어요",
-          upload_image:
-            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
-          description:
-            "도나스를 사먹고 유성천 다리를 건너시면 본격적으로 유성시장으로 들어옵니다. 날이 좋으니 유성천 뷰가 참 좋네요. 다리는 도나스 가게 골목으로 나오시면 바로 있습니다."
-        },
-        {
-          email: "operkop00@naver.com",
-          firstname: "kyungHae",
-          lastname: "Kim",
-          nickname: "kyungky",
-          profile_image_url:
-            "https://bootdey.com/img/Content/avatar/avatar3.png",
-          title: "유성천에 다녀왔어요",
-          upload_image:
-            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
-          description:
-            "도나스를 사먹고 유성천 다리를 건너시면 본격적으로 유성시장으로 들어옵니다. 날이 좋으니 유성천 뷰가 참 좋네요. 다리는 도나스 가게 골목으로 나오시면 바로 있습니다."
-        },
-        {
-          email: "htmddus@naver.com",
-          firstname: "seungyeon",
-          lastname: "Song",
-          nickname: "seungsg",
-          profile_image_url:
-            "https://bootdey.com/img/Content/avatar/avatar4.png",
-          title: "유성천에 다녀왔어요",
-          upload_image:
-            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
-          description:
-            "도나스를 사먹고 유성천 다리를 건너시면 본격적으로 유성시장으로 들어옵니다. 날이 좋으니 유성천 뷰가 참 좋네요. 다리는 도나스 가게 골목으로 나오시면 바로 있습니다."
-        },
-        {
-          email: "gary@naver.com",
-          firstname: "Gary",
-          lastname: "Kim",
-          nickname: "Garyga",
-          profile_image_url:
-            "https://bootdey.com/img/Content/avatar/avatar5.png",
-          title: "유성천에 다녀왔어요",
-          upload_image:
-            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
-          description:
-            "도나스를 사먹고 유성천 다리를 건너시면 본격적으로 유성시장으로 들어옵니다. 날이 좋으니 유성천 뷰가 참 좋네요. 다리는 도나스 가게 골목으로 나오시면 바로 있습니다."
-        }
-      ],
-      fetchData: [],
       following: [],
       isLoading: false,
       refreshing: false,
@@ -130,6 +63,7 @@ class HomeScreen extends Component {
     await this.setState({ following: follower });
 
     var unique = _.uniqBy(this.state.following, "id");
+
     await this.setState({ uniqueFollow: unique });
   }
 
@@ -143,7 +77,7 @@ class HomeScreen extends Component {
     this.setState({
       isLoading: true,
       refreshing: true,
-      fetchData: [],
+      Data: [],
       following: []
     });
 
@@ -180,7 +114,7 @@ class HomeScreen extends Component {
           <TouchableOpacity
             onPress={() => {
               this.props.navigation.navigate("SubscriptionList", {
-                Data: this.state.mockData
+                Data: this.state.uniqueFollow
               });
             }}
           >
@@ -255,6 +189,9 @@ class HomeScreen extends Component {
         de_menu={item.de_menu}
         up_text={item.up_text}
         down_text={item.down_text}
+        main_reple={item.main_reple}
+        main_reple_nickname={item.main_reple_nickname}
+        reple_count={item.reple_count}
         onPressThumnail={() => {
           this.props.navigation.navigate("CreatorChannel", {
             email: item.id,
@@ -277,11 +214,11 @@ class HomeScreen extends Component {
             nickname: item.nickname,
             profile_image_url: item.profile_url,
             title: item.title,
-            upload_image: item.upload_image,
+            upload_image: item.image_file,
             description: item.description,
             nickname: item.nickname,
             home_top_image: item.main_image_url,
-            content: item.content
+            content: item.contents
           });
         }}
         onPressReply={() => {
@@ -292,6 +229,7 @@ class HomeScreen extends Component {
   };
 
   render() {
+    console.log(this.state.Data)
     const { paddingHeight, animatedY, onScroll } = this.props.collapsible;
     return (
       <AnimatedFlatList

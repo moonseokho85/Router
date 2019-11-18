@@ -10,6 +10,12 @@ import {
 import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
 import * as Facebook from "expo-facebook";
+
+import RoundButton from "../components/RoundButton";
+
+// import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
+import GoogleLoginButton from "../components/GoogleLoginButton";
+
 import { ANDROID_CLIENT_ID, FACEBOOK_APP_ID } from "react-native-dotenv";
 
 export default class LoginScreen extends Component {
@@ -102,6 +108,8 @@ export default class LoginScreen extends Component {
   signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
+        // androidClientId:
+          // "1013339342054-4chan0f6dtejcjngkgms5ggpjc75tf8c.apps.googleusercontent.com",
         androidClientId: ANDROID_CLIENT_ID,
         behavior: "web",
         scopes: ["profile", "email"]
@@ -151,10 +159,12 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{ fontSize: 40, fontWeight: "bold", color: "white" }}>
-          Router.
-        </Text>
-        <View style={{ height: 200 }}></View>
+          <Image
+                source={require("../assets/routerlogo.jpg")}
+                style={{ width: 213, height: 248 }}
+              />
+
+        {/* <View style={{ height: 200 }}></View> */}
 
         <View style={{ paddingTop: 80 }}>
           <TouchableOpacity
@@ -167,16 +177,14 @@ export default class LoginScreen extends Component {
                 flexDirection: "row",
                 width: 300,
                 height: 50,
-                borderWidth: 1,
-                borderColor: "grey",
                 borderRadius: 10,
                 margin: 5,
                 backgroundColor: "orange"
               }}
             >
               <Image
-                source={require("../assets/router_mark2.png")}
-                style={{ width: 40, height: 30, margin: 10 }}
+                source={require("../assets/router_mark3.png")}
+                style={{ width: 30, height: 30, margin: 10 }}
               />
               <Text
                 style={{
@@ -201,8 +209,8 @@ export default class LoginScreen extends Component {
                 flexDirection: "row",
                 width: 300,
                 height: 50,
-                borderWidth: 1,
-                borderColor: "white",
+                borderWidth:1,
+                borderColor: "gray",
                 borderRadius: 10,
                 backgroundColor: "white",
                 margin: 5
@@ -210,7 +218,7 @@ export default class LoginScreen extends Component {
             >
               <Image
                 source={require("../assets/google_mark.jpg")}
-                style={{ width: 40, height: 30, margin: 10 }}
+                style={{ width: 40, height: 30, margin: 10 , borderWidth:1 }}
               />
               <Text style={{ fontSize: 20, fontWeight: "bold", margin: 10 }}>
                 구글로 로그인
@@ -226,10 +234,10 @@ export default class LoginScreen extends Component {
             <View
               style={{
                 flexDirection: "row",
-                width: 300,
-                height: 50,
-                borderWidth: 1,
-                borderColor: "grey",
+                // width: 300,
+                // height: 50,
+                // borderWidth: 1,
+                // borderColor: "#012a81",
                 borderRadius: 10,
                 backgroundColor: "#3b5998",
                 margin: 5
@@ -237,7 +245,7 @@ export default class LoginScreen extends Component {
             >
               <Image
                 source={require("../assets/facebook_mark.png")}
-                style={{ width: 40, height: 30, margin: 10 }}
+                style={{ width: 30, height: 30, margin: 10 }}
               />
               <Text
                 style={{
@@ -262,6 +270,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "orange"
+    backgroundColor: "white"
   }
 });

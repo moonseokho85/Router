@@ -22,16 +22,6 @@ import {
 } from "native-base";
 import LikeButton from "./LikeButton";
 import Slider from "./Slider";
-import { Chip } from "react-native-paper";
-import { ScrollView } from "react-native-gesture-handler";
-
-const images = [
-  "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-  "https://images.unsplash.com/photo-1485550409059-9afb054cada4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80",
-  "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-  "https://images.unsplash.com/photo-1429087969512-1e85aab2683d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
-  "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-];
 
 export default class CardCompnent extends Component {
   constructor(props) {
@@ -42,17 +32,27 @@ export default class CardCompnent extends Component {
       title_no: "",
       de_menu: "",
       comment: "",
+      likes: this.props.up_text,
+      unlikes: this.props.down_text,
       focused: false
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({
       email: this.props.email,
       user: this.props.user,
       title_no: this.props.title_no,
       de_menu: this.props.de_menu
     });
+
+    var splitLikes = this.state.likes.split("|");
+    var countLikes = splitLikes.length - 1;
+    var splitUnlikes = this.state.unlikes.split("|");
+    var countUnlikes = splitUnlikes.length - 1;
+
+    await this.setState({ likes: countLikes });
+    await this.setState({ unlikes: countUnlikes });
   }
 
   _sendComment = () => {
@@ -111,34 +111,38 @@ export default class CardCompnent extends Component {
           <Slider images={this.props.upload_image} />
         </CardItem>
 
-        <TouchableOpacity onPress={this.props.onPressContent}>
-          <CardItem style={{ height: 50 }}>
-            <Left>
-              <Text>{this.props.likes} likes</Text>
-            </Left>
-            <Right>
-              <LikeButton
-                email={this.props.email}
-                user={this.props.user}
-                // title={this.props.title}
-                title_no={this.props.title_no}
-                de_menu={this.props.de_menu}
-                up_text={this.props.up_text}
-                down_text={this.props.down_text}
-              />
-              {/* <Button transparent>
-              <Icon name='ios-chatbubbles' style={{ color:'black' }}/>
-            </Button>
-            <Button transparent>
-              <Icon name='ios-send' style={{ color:'black' }}/>
-            </Button> */}
-            </Right>
-          </CardItem>
+        <CardItem style={{ height: 50 }}>
+          <Left>
+            <Text>
+              {this.state.likes} 좋아요 / {this.state.unlikes} 싫어요
+            </Text>
+          </Left>
+          <Right>
+            <LikeButton
+              email={this.props.email}
+              user={this.props.user}
+              // title={this.props.title}
+              title_no={this.props.title_no}
+              de_menu={this.props.de_menu}
+              up_text={this.props.up_text}
+              down_text={this.props.down_text}
+            />
+          </Right>
+        </CardItem>
 
+        <TouchableOpacity onPress={this.props.onPressContent}>
           <CardItem>
-            <Text numberOfLines={3}>
-              <Text style={{ fontWeight: "900" }}>{this.props.nickname}</Text>
-              {this.props.description}
+            <Text numberOfLines={3}>{this.props.description}</Text>
+          </CardItem>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <CardItem>
+            <Text>
+              <Text style={{ fontWeight: "900" }}>
+                {this.props.main_reple_nickname}
+              </Text>
+              {this.props.main_reple}
             </Text>
           </CardItem>
         </TouchableOpacity>
@@ -146,10 +150,10 @@ export default class CardCompnent extends Component {
         <Button
           transparent
           light
-          style={{ height: 10, marginLeft: 10 }}
+          style={{ height: 10, marginLeft: 20 }}
           onPress={this.props.onPressReply}
         >
-          <Text>댓글 보기</Text>
+          <Text style={{ fontSize: 10 }}>{this.props.reple_count}개 댓글 보기</Text>
         </Button>
         <Item>
           <View

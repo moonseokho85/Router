@@ -14,7 +14,6 @@ import ChannelContentListScreen from "../screens/ChannelContentListScreen";
 import ChannelCommunityScreen from "../screens/ChannelCommunityScreen";
 import ChannelInfoScreen from "../screens/ChannelInfoScreen";
 import { withCollapsibleForTab } from "react-navigation-collapsible";
-import firebase from "firebase";
 
 const ChTabNavigator = createMaterialTopTabNavigator(
   {
@@ -64,7 +63,6 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
   // eslint-disable-next-line no-unused-vars
 
   const { translateY, translateOpacity, translateProgress } = collapsible;
-  var user = firebase.auth().currentUser;
 
   return (
     <View style={{ width: "100%", height: "100%", justifyContent: "flex-end" }}>

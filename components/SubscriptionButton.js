@@ -1,6 +1,6 @@
 import React from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import firebase from 'firebase'
+import firebase from "firebase";
 
 export default class SubscriptionButton extends React.Component {
   constructor(props) {

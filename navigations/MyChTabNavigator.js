@@ -23,6 +23,7 @@ import MyChannelHomeScreen from "../screens/MyChannelHomeScreen";
 import SubscriptionButton from "../components/SubscriptionButton";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import MyChannelContentListScreen from "../screens/MyChannelContentListScreen";
+import MyChannelCommunityScreen from "../screens/MyChannelCommunityScreen";
 
 const MyChTabNavigator = createMaterialTopTabNavigator(
   {
@@ -33,7 +34,7 @@ const MyChTabNavigator = createMaterialTopTabNavigator(
       screen: MyChannelContentListScreen
     },
     커뮤니티: {
-      screen: ChannelCommunityScreen
+      screen: MyChannelCommunityScreen
     },
     정보: {
       screen: ChannelInfoScreen
@@ -70,7 +71,6 @@ const url_cat =
 // eslint-disable-next-line no-unused-vars
 const GroupImageHeader = ({ navigation, collapsible }) => {
   // eslint-disable-next-line no-unused-vars
-  // console.log(collapsible)
 
   var user = firebase.auth().currentUser;
 

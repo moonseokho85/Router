@@ -31,11 +31,11 @@ class MyChannelHomeScreen extends Component {
   }
 
   async componentDidMount() {
-    this._fetchData();
+    await this._fetchData();
   }
 
   _fetchData = async () => {
-    const user = firebase.auth().currentUser;
+    var user = firebase.auth().currentUser;
 
     var data = {
       email: user.email
@@ -68,6 +68,7 @@ class MyChannelHomeScreen extends Component {
 
   render() {
     const { animatedY, onScroll } = this.props.collapsible;
+    console.log(this.state.fetchData)
     return (
       <AnimatedFlatList
         style={{ flex: 1 }}

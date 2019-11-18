@@ -139,7 +139,7 @@ class ChannelHomeScreen extends Component {
   };
 
   render() {
-    const { animatedY, onScroll } = this.props.collapsible; // console.log(this.props)
+    const { animatedY, onScroll } = this.props.collapsible;
 
     return (
       <AnimatedFlatList

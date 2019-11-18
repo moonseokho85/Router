@@ -31,8 +31,7 @@ export default class MapScreen extends Component {
         {
           lat: 36.363091,
           lng: 127.3758221,
-          title:
-            "맛잇어",
+          title: "맛잇어",
           content: "맛잇는 가게"
         },
         {
@@ -62,7 +61,7 @@ export default class MapScreen extends Component {
       ],
       isLoading: false,
       refreshing: false,
-      fetchData2:[]
+      fetchData2: []
     };
     this._getLocationAsync();
   }
@@ -112,9 +111,6 @@ export default class MapScreen extends Component {
       longitudeDelta
     } = this.state.region;
 
-    console.log("centerMap clicked");
-    console.log(latitude);
-
     this.map.animateToRegion({
       latitude,
       longitude,
@@ -123,7 +119,7 @@ export default class MapScreen extends Component {
     });
   }
 
-  _fetchData = () => {
+  _fetchData = async () => {
     var user = firebase.auth().currentUser;
 
     var data = {
@@ -136,7 +132,7 @@ export default class MapScreen extends Component {
       fetchData: []
     });
 
-    fetch("http://34.82.57.148:8080/react_native_content_allselect", {
+    await fetch("http://34.82.57.148:8080/react_native_content_allselect", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -145,12 +141,7 @@ export default class MapScreen extends Component {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
-      .then(resData =>
-        this.setState({
-          fetchData2: resData.select,
-          following: resData.following
-        })
-      )
+      .then(resData => console.log(resData.lat))
       .catch(error => console.log(error))
       .finally(() => {
         this.setState({ isLoading: false, refreshing: false });
@@ -193,12 +184,12 @@ export default class MapScreen extends Component {
 
     const allCoords = this.state.fetchData.map(c => ({
       geometry: {
-        coordinates: [c.lng, c.lat, c.title, c.content]
+        coordinates: [c.lng, c.lat, c.title, c.contents]
       }
     }));
 
     const cluster = getCluster(allCoords, region);
-    console.log(this.state.fetchData2);
+    
     return (
       <View style={styles.container}>
         <CurrentLocationButton
