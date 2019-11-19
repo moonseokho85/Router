@@ -14,11 +14,33 @@ import firebase from "firebase";
 export default class MyPageScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      Data: []
+    };
+  }
+
+  async componentDidMount() {
+    var user = firebase.auth().currentUser;
+
+    var data = {
+      email: user.email
+    };
+
+    await fetch("http://34.82.57.148:8080/react_native_profile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(resData => this.setState({ Data: resData }))
+      .catch(error => console.log(error));
   }
 
   render() {
     var user = firebase.auth().currentUser;
-
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -26,7 +48,7 @@ export default class MyPageScreen extends Component {
             <Image
               style={styles.avatar}
               source={{
-                uri: user.photoURL
+                uri: this.state.Data.profile_url
               }}
             />
 
@@ -117,7 +139,9 @@ export default class MyPageScreen extends Component {
         {/* 아이콘 */}
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('MyInfoRevise')}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("MyInfoRevise")}
+            >
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}
@@ -131,7 +155,9 @@ export default class MyPageScreen extends Component {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("MyChannel")}
+              onPress={() => this.props.navigation.navigate("MyChannel", {
+                profile_url : this.state.Data.profile_url
+              })}
             >
               <View style={styles.menuBox}>
                 <Image

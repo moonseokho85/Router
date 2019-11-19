@@ -76,6 +76,8 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
 
   const { translateY, translateOpacity, translateProgress } = collapsible;
 
+  console.log(navigation);
+
   return (
     <View style={{ width: "100%", height: "100%", justifyContent: "flex-end" }}>
       <Image
@@ -92,7 +94,7 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
         style={{
           flexDirection: "row",
           marginBottom: 10,
-          marginLeft: 10,
+          marginLeft: 10
           // backgroundColor: "blue"
         }}
       >
@@ -104,7 +106,7 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
           }}
         >
           <Animated.Image
-            source={{ uri: user.photoURL }}
+            source={{ uri: navigation.state.params.profile_url }}
             resizeMode="cover"
             style={{
               transform: [{ scale: translateOpacity }],
@@ -113,7 +115,7 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
               height: 100,
               borderWidth: 4,
               borderColor: "white",
-              borderRadius: 50
+              borderRadius: 10
             }}
           />
           <Animated.View>
