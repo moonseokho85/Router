@@ -68,6 +68,10 @@ export default class MapScreen extends Component {
 
   async componentDidMount() {
     await this._fetchData();
+    var test = this.state.fetchData.filter((item)=>{
+      return item.lat
+    })
+    await console.log("---TEST---", test)
   }
 
   // componentWillMount() {
@@ -141,7 +145,7 @@ export default class MapScreen extends Component {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
-      .then(resData => console.log(resData.lat))
+      .then(resData => this.setState({ fetchData: resData }))
       .catch(error => console.log(error))
       .finally(() => {
         this.setState({ isLoading: false, refreshing: false });
@@ -189,7 +193,7 @@ export default class MapScreen extends Component {
     }));
 
     const cluster = getCluster(allCoords, region);
-    
+
     return (
       <View style={styles.container}>
         <CurrentLocationButton

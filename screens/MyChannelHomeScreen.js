@@ -41,7 +41,7 @@ class MyChannelHomeScreen extends Component {
       email: user.email
     };
 
-    await fetch("http://134.82.57.148:8080/react_native_content_select", {
+    await fetch("http://34.82.57.148:8080/react_native_content_select", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,19 +56,45 @@ class MyChannelHomeScreen extends Component {
 
   renderItem = ({ item }) => (
     <CardComponent
-      profile_image_url={item.photoURL}
+      profile_image_url={item.profile_url}
       title={item.title}
       upload_image={item.image_file}
       description={item.contents}
+      email={item.id}
+      title_no={item.title_no}
+      de_menu={item.de_menu}
+      up_text={item.up_text}
+      down_text={item.down_text}
+      main_reple={item.main_reple}
+      main_reple_nickname={item.main_reple_nickname}
+      reple_count={item.reple_count}
+      onPressContent={() => {
+        this.props.navigation.navigate("Detail", {
+          email: item.id,
+          firstname: item.firstname,
+          lastname: item.lastname,
+          nickname: item.nickname,
+          profile_image_url: item.profile_url,
+          title: item.title,
+          upload_image: item.image_file,
+          description: item.description,
+          nickname: item.nickname,
+          home_top_image: item.main_image_url,
+          content: item.contents
+        });
+      }}
       onPressReply={() => {
-        this.props.navigation.navigate("Reply");
+        this.props.navigation.navigate("Reply", {
+          email: item.id,
+          title_no: item.title_no,
+          de_menu: item.de_menu
+        });
       }}
     />
   );
 
   render() {
     const { animatedY, onScroll } = this.props.collapsible;
-    console.log(this.state.fetchData)
     return (
       <AnimatedFlatList
         style={{ flex: 1 }}

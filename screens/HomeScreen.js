@@ -222,14 +222,17 @@ class HomeScreen extends Component {
           });
         }}
         onPressReply={() => {
-          this.props.navigation.navigate("Reply");
+          this.props.navigation.navigate("Reply", {
+            email: item.id,
+            title_no: item.title_no,
+            de_menu: item.de_menu
+          });
         }}
       />
     );
   };
 
   render() {
-    console.log(this.state.Data)
     const { paddingHeight, animatedY, onScroll } = this.props.collapsible;
     return (
       <AnimatedFlatList

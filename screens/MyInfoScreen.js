@@ -30,9 +30,9 @@ export default class MyInfoScreen extends Component {
     this.fetchProfile();
   }
 
-  fetchProfile = () => {
+  fetchProfile = async () => {
     var user = firebase.auth().currentUser;
-    fetch("http://34.82.57.148:8080/react_native_profile", {
+    await fetch("http://34.82.57.148:8080/react_native_profile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

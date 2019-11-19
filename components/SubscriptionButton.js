@@ -7,12 +7,11 @@ export default class SubscriptionButton extends React.Component {
     super(props);
     this.state = {
       subscribed: false,
-      fetchData: []
+      fetchData: this.props.fetchData
     };
   }
 
   async componentDidMount() {
-    await this.setState({ fetchData: this.props.fetchData });
     await this.setState({ subscribed: this.state.fetchData[0].follow });
   }
 

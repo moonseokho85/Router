@@ -16,7 +16,10 @@ const SearchStack = createStackNavigator({
             name="menu"
             size={30}
           />
-        )
+        ),
+        headerTitleStyle: {
+          color: "orange"
+        }
       };
     }
   }

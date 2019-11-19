@@ -24,7 +24,10 @@ const MyPageStack = createStackNavigator({
             name="menu"
             size={30}
           />
-        )
+        ),
+        headerTitleStyle: {
+          color: "orange"
+        }
       };
     }
   },
@@ -38,16 +41,16 @@ const MyPageStack = createStackNavigator({
   },
 
   MyInfoRevise: {
-    screen : MyInfoScreen,
+    screen: MyInfoScreen,
     navigationOptions: {
-      title: '내 정보 수정'
+      title: "내 정보 수정"
     }
   },
 
-  Post : {
-    screen : UploadStack,
+  Post: {
+    screen: UploadStack,
     navigationOptions: {
-      title: '위치 추가'
+      title: "위치 추가"
     }
   },
 
@@ -55,7 +58,7 @@ const MyPageStack = createStackNavigator({
     screen: SubscriptionListScreen,
 
     navigationOptions: {
-      title: '구독 중인 채널'
+      title: "구독 중인 채널"
     }
   },
 
@@ -63,7 +66,7 @@ const MyPageStack = createStackNavigator({
     screen: ReplyScreen,
 
     navigationOptions: {
-      title: '댓글'
+      title: "댓글"
     }
   },
 
@@ -71,7 +74,7 @@ const MyPageStack = createStackNavigator({
     screen: NoticeScreen,
 
     navigationOptions: {
-      title: '공지사항'
+      title: "공지사항"
     }
   },
 
@@ -79,7 +82,7 @@ const MyPageStack = createStackNavigator({
     screen: SettingScreen,
 
     navigationOptions: {
-      title: '설정'
+      title: "설정"
     }
   }
 });

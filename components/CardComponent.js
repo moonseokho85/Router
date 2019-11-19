@@ -138,10 +138,11 @@ export default class CardCompnent extends Component {
 
         <TouchableOpacity>
           <CardItem>
-            <Text>
+            <Text numberOfLines={2}>
               <Text style={{ fontWeight: "900" }}>
                 {this.props.main_reple_nickname}
               </Text>
+              {"  "}
               {this.props.main_reple}
             </Text>
           </CardItem>
@@ -153,11 +154,19 @@ export default class CardCompnent extends Component {
           style={{ height: 10, marginLeft: 20 }}
           onPress={this.props.onPressReply}
         >
-          <Text style={{ fontSize: 10 }}>{this.props.reple_count}개 댓글 보기</Text>
+          <Text style={{ fontSize: 10 }}>
+            {this.props.reple_count}개 댓글 보기
+          </Text>
         </Button>
         <Item>
           <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 10 }}
+            style={{
+              flexDirection: "row",
+              marginTop: 10,
+              marginBottom: 10,
+              marginLeft: 10,
+              marginRight: 10
+            }}
           >
             <Input
               style={{ width: 100 }}
@@ -175,7 +184,19 @@ export default class CardCompnent extends Component {
                 active
                 name="swap"
                 onPress={() => {
-                  this._sendComment();
+                  Alert.alert(
+                    "확인",
+                    "정말로 댓글을 남기시겠습니까?",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                      },
+                      { text: "OK", onPress: () => this._sendComment() }
+                    ],
+                    { cancelable: false }
+                  );
                 }}
               />
             </TouchableOpacity>

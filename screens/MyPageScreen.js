@@ -117,7 +117,7 @@ export default class MyPageScreen extends Component {
         {/* 아이콘 */}
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <TouchableOpacity onPress={() => this.goToNextScreen()}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('MyInfoRevise')}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.icon}

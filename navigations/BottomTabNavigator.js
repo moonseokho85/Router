@@ -19,7 +19,7 @@ import PromiseStack from "../stacks/PromiseStack";
 
 const BottomTabNavigator = createBottomTabNavigator(
   {
-    Home: {
+    홈: {
       screen: HomeStack,
 
       navigationOptions: {
@@ -28,8 +28,8 @@ const BottomTabNavigator = createBottomTabNavigator(
         )
       }
     },
-    
-    Search: {
+
+    검색: {
       screen: SearchStack,
 
       navigationOptions: {
@@ -39,7 +39,7 @@ const BottomTabNavigator = createBottomTabNavigator(
       }
     },
 
-    Map: {
+    지도: {
       screen: MapStack,
 
       navigationOptions: {
@@ -50,22 +50,22 @@ const BottomTabNavigator = createBottomTabNavigator(
       }
     },
 
-    Promise: {
+    약속: {
       screen: PromiseStack,
 
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="md-cash" style={{ color: tintColor }} size={30} />
+          <Icon name="ios-paper" style={{ color: tintColor }} size={30} />
         )
       }
     },
 
-    Info: {
+    내정보: {
       screen: MyPageStack,
 
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="md-information" style={{ color: tintColor }} size={30} />
+          <Icon name="md-person" style={{ color: tintColor }} size={30} />
         )
       }
     }
@@ -85,10 +85,10 @@ const BottomTabNavigator = createBottomTabNavigator(
         })
       },
       iconStyle: { height: 50 },
-      activeTintColor: "#000",
+      activeTintColor: "orange",
       inactiveTintColor: "#d1cece",
       upperCaseLabel: false,
-      showLabel: false,
+      showLabel: true,
       showIcon: true
     }
   }
