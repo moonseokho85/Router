@@ -108,7 +108,7 @@ class ChannelCommunityScreen extends Component {
           }}
         >
           <Card.Title
-            title="요청하기"
+            title="글쓰기"
             left={props => (
               <Icon {...props} name="md-add-circle" color="orange" />
             )}

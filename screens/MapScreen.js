@@ -32,31 +32,31 @@ export default class MapScreen extends Component {
           lat: 36.363091,
           lng: 127.3758221,
           title: "맛잇어",
-          content: "맛잇는 가게"
+          contents: "맛잇는 가게"
         },
         {
           lat: 36.364091,
           lng: 127.3758221,
           title: "맛잇어",
-          content: "맛잇는 가게"
+          contents: "맛잇는 가게"
         },
         {
           lat: 36.365091,
           lng: 127.3758221,
           title: "맛잇어",
-          content: "맛잇는 가게"
+          contents: "맛잇는 가게"
         },
         {
           lat: 36.366091,
           lng: 127.3758221,
           title: "맛잇어",
-          content: "맛잇는 가게"
+          contents: "맛잇는 가게"
         },
         {
           lat: 36.367091,
           lng: 127.3758221,
           title: "맛잇어",
-          content: "맛잇는 가게"
+          contents: "맛잇는 가게"
         }
       ],
       isLoading: false,
@@ -68,21 +68,11 @@ export default class MapScreen extends Component {
 
   async componentDidMount() {
     await this._fetchData();
-    var test = this.state.fetchData.filter((item)=>{
+    var test = this.state.fetchData.map((item)=>{
       return item.lat
     })
-    await console.log("---TEST---", test)
+    console.log(test)
   }
-
-  // componentWillMount() {
-  //   if (Platform.OS === 'android' && !Constants.isDevice) {
-  //     this.setState({
-  //       errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-  //     });
-  //   } else {
-  //     this._getLocationAsync();
-  //   }
-  // }
 
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);

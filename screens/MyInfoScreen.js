@@ -66,7 +66,6 @@ export default class MyInfoScreen extends Component {
       return <ImageBrowser max={10} callback={this.imageBrowserCallback} />;
     }
     var user = firebase.auth().currentUser;
-    console.log("---fetchData---", this.state.fetchData);
     return (
       <View style={styles.container}>
         <TouchableHighlight onPress={this.openBrowser}>

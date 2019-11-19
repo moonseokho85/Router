@@ -57,7 +57,7 @@ class HomeScreen extends Component {
     await this._fetchData();
 
     var follower = this.state.Data.filter(item => {
-      return item.follower == `|${user.email}`;
+      return item.follower.indexOf(`${user.email}`) != -1;
     });
 
     await this.setState({ following: follower });
