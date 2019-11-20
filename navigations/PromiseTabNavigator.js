@@ -49,5 +49,5 @@ const PromiseTabNavigator = createMaterialTopTabNavigator(
 const PromiseAppTabNavigator = createAppContainer(PromiseTabNavigator);
 
 export default withCollapsibleForTab(PromiseAppTabNavigator, {
-    iOSCollapsedColor: '#032',
+  iOSCollapsedColor: '#032',
   });

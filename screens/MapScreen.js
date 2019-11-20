@@ -61,17 +61,25 @@ export default class MapScreen extends Component {
       ],
       isLoading: false,
       refreshing: false,
-      fetchData2: []
+      fetchData2: [],
+      Data: []
     };
     this._getLocationAsync();
   }
 
   async componentDidMount() {
     await this._fetchData();
-    var test = this.state.fetchData.map((item)=>{
-      return item.lat
-    })
-    console.log(test)
+    var list = [];
+    await this.state.fetchData.map(item => {
+      return list.push({
+        lat: Number(item.lat),
+        lng: Number(item.lng),
+        title: item.title,
+        contents: item.contents
+      });
+    });
+    await this.setState({ Data: list });
+    await console.log(this.state.Data);
   }
 
   _getLocationAsync = async () => {
@@ -176,7 +184,7 @@ export default class MapScreen extends Component {
   render() {
     const { region } = this.state;
 
-    const allCoords = this.state.fetchData.map(c => ({
+    const allCoords = this.state.Data.map(c => ({
       geometry: {
         coordinates: [c.lng, c.lat, c.title, c.contents]
       }

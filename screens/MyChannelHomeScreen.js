@@ -61,6 +61,7 @@ class MyChannelHomeScreen extends Component {
       upload_image={item.image_file}
       description={item.contents}
       email={item.id}
+      nickname={item.nickname}
       title_no={item.title_no}
       de_menu={item.de_menu}
       up_text={item.up_text}

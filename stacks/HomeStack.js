@@ -23,7 +23,6 @@ const HomeStack = createStackNavigator(
           title: "Router.",
           headerRight: (
             <Icon
-              style={{ paddingRight: 20 }}
               onPress={() => navigation.openDrawer()}
               name="menu"
               size={30}

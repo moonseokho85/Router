@@ -99,7 +99,7 @@ class HomeScreen extends Component {
 
   _ListHeaderComponent = () => {
     return (
-      <View style={{ height: 100 }}>
+      <View style={{ height: 100, marginLeft: 10, marginRight: 10 }}>
         <View
           style={{
             flex: 1,
@@ -185,6 +185,7 @@ class HomeScreen extends Component {
         description={item.contents}
         email={item.id}
         user={user.email}
+        nickname={item.nickname}
         title_no={item.title_no}
         de_menu={item.de_menu}
         up_text={item.up_text}

@@ -72,15 +72,17 @@ class ChannelHomeScreen extends Component {
       key={i}
       profile_image_url={item.profile_url}
       title={item.title}
-      // firstname = {this.state.firstname}
-      // lastname = {this.state.lastname}
       upload_image={item.image_file}
       description={item.contents}
       email={item.id}
+      nickname={item.nickname}
       title_no={item.title_no}
       de_menu={item.de_menu}
       up_text={item.up_text}
       down_text={item.down_text}
+      main_reple={item.main_reple}
+      main_reple_nickname={item.main_reple_nickname}
+      reple_count={item.reple_count}
       onPressContent={() => {
         this.props.navigation.navigate("Detail", {
           email: item.id,
@@ -97,7 +99,11 @@ class ChannelHomeScreen extends Component {
         });
       }}
       onPressReply={() => {
-        this.props.navigation.navigate("Reply");
+        this.props.navigation.navigate("Reply", {
+          email: item.id,
+          title_no: item.title_no,
+          de_menu: item.de_menu
+        });
       }}
     />
   );
@@ -140,7 +146,7 @@ class ChannelHomeScreen extends Component {
 
   render() {
     const { animatedY, onScroll } = this.props.collapsible;
-
+    console.log("---THIS.STATE.FETCHDATA---", this.state.fetchData);
     return (
       <AnimatedFlatList
         style={{ flex: 1 }}

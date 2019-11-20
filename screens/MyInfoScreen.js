@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, TextInput, Dimensions } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  TextInput,
+  Dimensions,
+  KeyboardAvoidingView
+} from "react-native";
 import firebase from "firebase";
 import { Thumbnail } from "native-base";
 import { TouchableHighlight } from "react-native-gesture-handler";
@@ -7,6 +14,8 @@ import Constants from "expo-constants";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import ImageBrowser from "../components/ImageBrowser";
+import { RNS3 } from "react-native-s3-upload";
+import { RNS3_ACCESS_KEY, RNS3_SECRET_KEY } from "react-native-dotenv";
 
 export default class MyInfoScreen extends Component {
   constructor(props) {
@@ -16,18 +25,16 @@ export default class MyInfoScreen extends Component {
       photos: [],
 
       fetchData: [],
-      revisedData: [
-        {
-          profile_url: "",
-          nickname: "",
-          자기소개: ""
-        }
-      ]
+
+      profile_url: null,
+      nickname: null,
+      introduce: null
     };
   }
 
-  componentDidMount() {
-    this.fetchProfile();
+  async componentDidMount() {
+    await this.fetchProfile();
+    await console.log("---fetchData---", this.state.fetchData);
   }
 
   fetchProfile = async () => {
@@ -41,7 +48,9 @@ export default class MyInfoScreen extends Component {
       body: JSON.stringify({ email: user.email })
     })
       .then(res => res.json())
-      .then(resData => this.setState({ fetchData: resData }))
+      .then(resData =>
+        this.setState({ fetchData: resData, profile_url: resData.profile_url })
+      )
       .catch(error => console.log(error));
   };
 
@@ -57,8 +66,40 @@ export default class MyInfoScreen extends Component {
           imageBrowserOpen: false,
           photos
         });
+        this._convertPhoto(photos[0].uri);
       })
       .catch(e => console.log(e));
+  };
+
+  _convertPhoto = uri => {
+    var user = firebase.auth().currentUser;
+
+    RNS3.put(
+      {
+        // `uri` can also be a file system path (i.e. file://)
+        uri: uri,
+        name: `${Date.now()}.${user.email}.image`,
+        type: "image/jpg"
+      },
+      {
+        keyPrefix: "content_img/",
+        bucket: "file-image",
+        region: "ap-northeast-2",
+        accessKey: RNS3_ACCESS_KEY,
+        secretKey: RNS3_SECRET_KEY,
+        successActionStatus: 201
+      }
+    ).then(response => {
+      if (response.status !== 201)
+        throw new Error("Failed to upload image to S3");
+
+      console.log(
+        "--- RESPONSE.BODY.POSTRESPONSE.LOCATION ---",
+        response.body.postResponse.location
+      );
+      this.setState({ profile_url: response.body.postResponse.location });
+      console.log("--------------------", this.state.profile_url);
+    });
   };
 
   render() {
@@ -67,14 +108,13 @@ export default class MyInfoScreen extends Component {
     }
     var user = firebase.auth().currentUser;
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <TouchableHighlight onPress={this.openBrowser}>
           <Thumbnail
             large
             square
-            //   source={{ uri: this.state.fetchData.profile_url }}
-            source={{ uri: user.photoURL }}
-            style={{ marginBottom: 10 }}
+            source={{ uri: this.state.profile_url }}
+            style={{ marginBottom: 10, borderRadius: 10 }}
           />
         </TouchableHighlight>
         <Text style={{ marginBottom: 10 }}>
@@ -83,29 +123,51 @@ export default class MyInfoScreen extends Component {
         <Text style={{ marginBottom: 10 }}>
           이메일 : {this.state.fetchData.id}
         </Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text>닉네임 : </Text>
+          <TextInput
+            style={{
+              height: 40,
+              width: Dimensions.get("window").width - 100,
+              borderColor: "gray",
+              borderWidth: 1,
+              marginBottom: 10,
+              textAlign: "center"
+            }}
+            onChangeText={text => this.setState({ nickname: text })}
+            placeholder={this.state.fetchData.nickname}
+          />
+        </View>
         <TextInput
           style={{
             height: 40,
             width: Dimensions.get("window").width - 20,
             borderColor: "gray",
             borderWidth: 1,
-            marginBottom: 10
+            marginBottom: 10,
+            textAlign: "center"
           }}
-          onChangeText={text => this.setState({ nickname: text })}
-          placeholder={this.state.fetchData.nickname}
-        />
-        <TextInput
-          style={{
-            height: 40,
-            width: Dimensions.get("window").width - 20,
-            borderColor: "gray",
-            borderWidth: 1,
-            marginBottom: 10
-          }}
-          onChangeText={text => this.setState({ 자기소개: text })}
+          onChangeText={text => this.setState({ introduce: text })}
           placeholder={"자기소개"}
         />
-        <TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            fetch("http://192.168.0.160:8080/react_native_profile_edit", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+              },
+              body: JSON.stringify({
+                email: user.email,
+                profile_url: this.state.profile_url,
+                nickname: this.state.nickname,
+                introduce: this.state.introduce
+              })
+            });
+            this.props.navigation.dismiss();
+          }}
+        >
           <View
             style={{
               backgroundColor: "orange",
@@ -118,7 +180,7 @@ export default class MyInfoScreen extends Component {
             <Text>수정하기</Text>
           </View>
         </TouchableHighlight>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

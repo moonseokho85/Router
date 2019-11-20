@@ -17,7 +17,7 @@ import {
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-class ChannelCommunityScreen extends Component {
+class MyChannelCommunityScreen extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Icon name="ios-people" style={{ color: tintColor }} />
@@ -31,34 +31,22 @@ class ChannelCommunityScreen extends Component {
         {
           title: "공지사항1",
           description: "공지사항1입니다.",
-          image: [
-            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
-            
-          ]
+          image: ["https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624"]
         },
         {
           title: "공지사항2",
           description: "공지사항2입니다.",
-          image: [
-            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
-            
-          ]
+          image: ["https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624"]
         },
         {
           title: "공지사항3",
           description: "공지사항3입니다.",
-          image: [
-            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
-            
-          ]
+          image: ["https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624"]
         },
         {
           title: "공지사항4",
           description: "공지사항4입니다.",
-          image: [
-            "https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624",
-            
-          ]
+          image: ["https://t1.daumcdn.net/cfile/tistory/99A7CC3E5B069D3624"]
         }
       ],
       fetchData: []
@@ -70,7 +58,7 @@ class ChannelCommunityScreen extends Component {
   }
 
   _fetchData = async () => {
-      var user = firebase.auth().currentUser;
+    var user = firebase.auth().currentUser;
     var data = {
       email: user.email
     };
@@ -89,7 +77,7 @@ class ChannelCommunityScreen extends Component {
   };
 
   _ListHeaderComponent = () => {
-      var user = firebase.auth().currentUser;
+    var user = firebase.auth().currentUser;
     return (
       <View
         style={{
@@ -149,4 +137,4 @@ class ChannelCommunityScreen extends Component {
   }
 }
 
-export default withCollapsibleForTabChild(ChannelCommunityScreen);
+export default withCollapsibleForTabChild(MyChannelCommunityScreen);

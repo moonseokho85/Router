@@ -121,7 +121,7 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
               <Text
                 style={{ fontSize: 20, fontWeight: "bold", color: "white" }}
               >
-                {user.displayName}
+                {navigation.state.params.nickname}
               </Text>
               <Text style={{ fontSize: 10, color: "white" }}>{user.email}</Text>
             </View>

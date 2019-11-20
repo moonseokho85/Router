@@ -69,10 +69,7 @@ export default class CardCompnent extends Component {
         de_menu: this.state.de_menu,
         comment: this.state.comment
       })
-    })
-      .then(res => res.json())
-      .then(resData => this.setState({ fetchData: resData }))
-      .catch(error => console.log(error));
+    }).then(this.setState({ comment: "" }));
   };
 
   render() {
@@ -91,8 +88,7 @@ export default class CardCompnent extends Component {
             </TouchableOpacity>
             <Body>
               <Text>
-                {this.props.firstname}
-                {this.props.lastname}
+                {this.props.nickname}
               </Text>
               <Text note>Jan 21, 2019</Text>
             </Body>
@@ -102,7 +98,7 @@ export default class CardCompnent extends Component {
         <TouchableOpacity onPress={this.props.onPressContent}>
           <CardItem>
             <Body>
-              <Text>{this.props.title}</Text>
+              <Text numberOfLines={1}>{this.props.title}</Text>
             </Body>
           </CardItem>
         </TouchableOpacity>
@@ -132,7 +128,7 @@ export default class CardCompnent extends Component {
 
         <TouchableOpacity onPress={this.props.onPressContent}>
           <CardItem>
-            <Text numberOfLines={3}>{this.props.description}</Text>
+            <Text numberOfLines={2}>{this.props.description}</Text>
           </CardItem>
         </TouchableOpacity>
 
@@ -174,10 +170,12 @@ export default class CardCompnent extends Component {
               onChangeText={comment => {
                 this.setState({ comment });
               }}
+              value={this.state.comment}
               multiline={true}
               onFocus={() => {
                 this.setState({ focused: true });
               }}
+              clearButtonMode="always"
             />
             <TouchableOpacity>
               <Icon

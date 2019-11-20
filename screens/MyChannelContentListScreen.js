@@ -32,6 +32,7 @@ class MyChannelContentListScreen extends Component {
 
   async componentDidMount() {
     await this._fetchData();
+    await console.log(this.state.fetchData);
   }
 
   _fetchData = async () => {
@@ -53,17 +54,18 @@ class MyChannelContentListScreen extends Component {
       .catch(error => console.log(error));
   };
 
-  renderItem = ({ item }) => (
-    <ListComponent
-      title={item.title}
-      upload_image={item.main_img_url}
-      description={item.content}
-    />
-  );
+  renderItem = ({ item }) => {
+    return (
+      <ListComponent
+        title={item.title}
+        upload_image={item.main_image_url}
+        description={item.contents}
+      />
+    );
+  };
 
   render() {
     const { animatedY, onScroll } = this.props.collapsible;
-
     return (
       <AnimatedFlatList
         style={{ flex: 1 }}

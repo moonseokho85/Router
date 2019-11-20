@@ -53,7 +53,7 @@ export default class MyPageScreen extends Component {
             />
 
             <View style={{ marginTop: 45, marginLeft: 10 }}>
-              <Text style={styles.name}>{user.displayName}</Text>
+              <Text style={styles.name}>{this.state.Data.nickname}</Text>
               <Text style={styles.email}>{user.email}</Text>
             </View>
 
@@ -155,9 +155,12 @@ export default class MyPageScreen extends Component {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("MyChannel", {
-                profile_url : this.state.Data.profile_url
-              })}
+              onPress={() =>
+                this.props.navigation.navigate("MyChannel", {
+                  profile_url: this.state.Data.profile_url,
+                  nickname: this.state.Data.nickname
+                })
+              }
             >
               <View style={styles.menuBox}>
                 <Image
