@@ -2,6 +2,7 @@ import React from "react";
 import { Icon } from "react-native-elements";
 import { createStackNavigator } from "react-navigation-stack";
 import MapScreen from "../screens/MapScreen";
+import ContentDetailScreen from '../screens/ContentDetailScreen'
 
 const MapStack = createStackNavigator({
   Map: {
@@ -22,6 +23,9 @@ const MapStack = createStackNavigator({
         }
       };
     }
+  },
+  Detail: {
+    screen: ContentDetailScreen
   }
 });
 

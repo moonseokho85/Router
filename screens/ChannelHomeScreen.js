@@ -83,6 +83,7 @@ class ChannelHomeScreen extends Component {
       main_reple={item.main_reple}
       main_reple_nickname={item.main_reple_nickname}
       reple_count={item.reple_count}
+      createdate={item.createdate}
       onPressContent={() => {
         this.props.navigation.navigate("Detail", {
           email: item.id,

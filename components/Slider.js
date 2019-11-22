@@ -15,26 +15,6 @@ class Slider extends React.Component {
     this.scrollRef = React.createRef();
   }
 
-  //   componentDidMount = () => {
-  //     setInterval(() => {
-  //       this.setState(
-  //         prev => ({
-  //           selectedIndex:
-  //             prev.selectedIndex === this.props.images.length - 1
-  //               ? 0
-  //               : prev.selectedIndex + 1
-  //         }),
-  //         () => {
-  //           this.scrollRef.current.scrollTo({
-  //             animated: true,
-  //             x: DEVICE_WIDTH * this.state.selectedIndex,
-  //             y: 0
-  //           });
-  //         }
-  //       );
-  //     }, AUTO_SWIPE_INTERVAL);
-  //   };
-
   nextImage = () =>
     this.setState(prev => ({
       selectedIndex:
@@ -96,7 +76,7 @@ const styles = StyleSheet.create({
   },
   circleDiv: {
     position: "absolute",
-    bottom: 15,
+    bottom: 0,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -110,7 +90,7 @@ const styles = StyleSheet.create({
     height: 4,
     borderRadius: 3,
     margin: 2,
-    backgroundColor: "white"
+    backgroundColor: "orange"
   }
 });
 

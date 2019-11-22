@@ -32,7 +32,7 @@ export default class LikeButton extends React.Component {
 
     if (this.state.up_text === "init") {
       this.setState({ liked: false });
-    } else if (this.state.up_text.indexOf("|" + user.email) > -1) {
+    } else if (this.state.up_text.indexOf("|#" + user.email+"#") > -1) {
       this.setState({ liked: true });
     } else {
       this.setState({ liked: false });
@@ -40,7 +40,7 @@ export default class LikeButton extends React.Component {
 
     if (this.state.down_text === "init") {
       this.setState({ unliked: false });
-    } else if (this.state.down_text.indexOf("|" + user.email) > -1) {
+    } else if (this.state.down_text.indexOf("|#" + user.email+"#") > -1) {
       this.setState({ unliked: true });
     } else {
       this.setState({ unliked: false });

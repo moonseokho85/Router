@@ -75,11 +75,12 @@ export default class MapScreen extends Component {
         lat: Number(item.lat),
         lng: Number(item.lng),
         title: item.title,
-        contents: item.contents
+        contents: item.contents,
+        upload_image: item.image_file,
+        createdDate: item.createdate
       });
     });
     await this.setState({ Data: list });
-    await console.log(this.state.Data);
   }
 
   _getLocationAsync = async () => {
@@ -105,7 +106,7 @@ export default class MapScreen extends Component {
     await this.setState({ region: region });
   };
 
-  centerMap() {
+  _centerMap() {
     const {
       latitude,
       longitude,
@@ -150,9 +151,8 @@ export default class MapScreen extends Component {
       });
   };
 
-  renderMarker = (marker, index) => {
+  _renderMarker = (marker, index) => {
     const key = index + marker.geometry.coordinates[0];
-
     // If a cluster
     if (marker.properties) {
       return (
@@ -177,6 +177,16 @@ export default class MapScreen extends Component {
         }}
         title={marker.geometry.coordinates[2]}
         description={marker.geometry.coordinates[3]}
+        onCalloutPress={() => {
+          this.props.navigation.navigate("Detail", {
+            title: marker.geometry.coordinates[2],
+            content: marker.geometry.coordinates[3],
+            latitude: marker.geometry.coordinates[1],
+            longitude: marker.geometry.coordinates[0],
+            upload_image: marker.geometry.coordinates[4],
+            createdDate: marker.geometry.coordinates[5]
+          });
+        }}
       />
     );
   };
@@ -186,7 +196,14 @@ export default class MapScreen extends Component {
 
     const allCoords = this.state.Data.map(c => ({
       geometry: {
-        coordinates: [c.lng, c.lat, c.title, c.contents]
+        coordinates: [
+          c.lng,
+          c.lat,
+          c.title,
+          c.contents,
+          c.upload_image,
+          c.createdDate
+        ]
       }
     }));
 
@@ -196,13 +213,12 @@ export default class MapScreen extends Component {
       <View style={styles.container}>
         <CurrentLocationButton
           cb={() => {
-            this.centerMap();
+            this._centerMap();
           }}
         />
         <MapView
           provider={"google"}
           initialRegion={this.state.region}
-          // mapType={"standard"}
           showsUserLocation={true}
           showsCompass={true}
           rotateEnabled={true}
@@ -210,10 +226,10 @@ export default class MapScreen extends Component {
             this.map = map;
           }}
           style={styles.mapStyle}
-          onRegionChangeComplete={region => this.setState({ region })} // centerMap과 충돌
+          onRegionChangeComplete={region => this.setState({ region })} // _centerMap과 충돌
         >
           {cluster.markers.map((marker, index) =>
-            this.renderMarker(marker, index)
+            this._renderMarker(marker, index)
           )}
         </MapView>
       </View>

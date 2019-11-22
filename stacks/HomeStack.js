@@ -74,11 +74,7 @@ const HomeStack = createStackNavigator(
       }
     },
     Detail: {
-      screen: ContentDetailScreen,
-
-      navigationOptions: {
-        header: null
-      }
+      screen: ContentDetailScreen
     }
   },
   {

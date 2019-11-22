@@ -57,7 +57,7 @@ class HomeScreen extends Component {
     await this._fetchData();
 
     var follower = this.state.Data.filter(item => {
-      return item.follower.indexOf(`${user.email}`) != -1;
+      return item.follower.indexOf(`#${user.email}#`) != -1;
     });
 
     await this.setState({ following: follower });
@@ -193,6 +193,7 @@ class HomeScreen extends Component {
         main_reple={item.main_reple}
         main_reple_nickname={item.main_reple_nickname}
         reple_count={item.reple_count}
+        createdate={item.createdate}
         onPressThumnail={() => {
           this.props.navigation.navigate("CreatorChannel", {
             email: item.id,
@@ -219,7 +220,10 @@ class HomeScreen extends Component {
             description: item.description,
             nickname: item.nickname,
             home_top_image: item.main_image_url,
-            content: item.contents
+            content: item.contents,
+            latitude: item.lat,
+            longitude: item.lng,
+            createdDate: item.createdate
           });
         }}
         onPressReply={() => {

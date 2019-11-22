@@ -49,7 +49,12 @@ export default class MyInfoScreen extends Component {
     })
       .then(res => res.json())
       .then(resData =>
-        this.setState({ fetchData: resData, profile_url: resData.profile_url })
+        this.setState({
+          fetchData: resData,
+          profile_url: resData.profile_url,
+          nickname: resData.nickname,
+          introduce: resData.introduce
+        })
       )
       .catch(error => console.log(error));
   };
@@ -135,7 +140,8 @@ export default class MyInfoScreen extends Component {
               textAlign: "center"
             }}
             onChangeText={text => this.setState({ nickname: text })}
-            placeholder={this.state.fetchData.nickname}
+            value={this.state.nickname}
+            placeholder={this.state.nickname}
           />
         </View>
         <TextInput
@@ -148,11 +154,12 @@ export default class MyInfoScreen extends Component {
             textAlign: "center"
           }}
           onChangeText={text => this.setState({ introduce: text })}
-          placeholder={"자기소개"}
+          value={this.state.introduce}
+          placeholder={this.state.introduce}
         />
         <TouchableHighlight
           onPress={() => {
-            fetch("http://192.168.0.160:8080/react_native_profile_edit", {
+            fetch("http://34.82.57.148:8080/react_native_profile_edit", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

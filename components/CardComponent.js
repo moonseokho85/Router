@@ -87,10 +87,8 @@ export default class CardCompnent extends Component {
               />
             </TouchableOpacity>
             <Body>
-              <Text>
-                {this.props.nickname}
-              </Text>
-              <Text note>Jan 21, 2019</Text>
+              <Text>{this.props.nickname}</Text>
+              <Text note style={{fontSize: 10}}>{this.props.createdate}</Text>
             </Body>
           </Left>
         </CardItem>
