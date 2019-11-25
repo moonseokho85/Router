@@ -37,6 +37,8 @@ export default class MyPageScreen extends Component {
       .then(res => res.json())
       .then(resData => this.setState({ Data: resData }))
       .catch(error => console.log(error));
+
+    await console.log(this.state.Data)
   }
 
   render() {
@@ -158,7 +160,8 @@ export default class MyPageScreen extends Component {
               onPress={() =>
                 this.props.navigation.navigate("MyChannel", {
                   profile_url: this.state.Data.profile_url,
-                  nickname: this.state.Data.nickname
+                  nickname: this.state.Data.nickname,
+                  blog_main_image: this.state.Data.blog_main_image
                 })
               }
             >

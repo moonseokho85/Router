@@ -63,11 +63,12 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
   // eslint-disable-next-line no-unused-vars
 
   const { translateY, translateOpacity, translateProgress } = collapsible;
+  console.log(navigation)
 
   return (
     <View style={{ width: "100%", height: "100%", justifyContent: "flex-end" }}>
       <Image
-        source={{ uri: url_cat }}
+        source={{ uri: navigation.state.params.blog_main_image }}
         resizeMode="cover"
         style={{
           position: "absolute",

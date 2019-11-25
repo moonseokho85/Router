@@ -34,7 +34,8 @@ export default class CardCompnent extends Component {
       comment: "",
       likes: this.props.up_text,
       unlikes: this.props.down_text,
-      focused: false
+      focused: false,
+      contents: ""
     };
   }
 
@@ -51,8 +52,15 @@ export default class CardCompnent extends Component {
     var splitUnlikes = this.state.unlikes.split("|");
     var countUnlikes = splitUnlikes.length - 1;
 
-    await this.setState({ likes: countLikes });
-    await this.setState({ unlikes: countUnlikes });
+    await this.setState({ likes: countLikes, unlikes: countUnlikes });
+    var a = this.props.description;
+    var a = a.match(/<p>([^</p>]+)<\/p>/g);
+    console.log(a);
+    if (a === null) {
+      this.setState({ contents: this.props.description });
+    } else {
+      this.setState({ contents: a });
+    }
   }
 
   _sendComment = () => {
@@ -88,7 +96,9 @@ export default class CardCompnent extends Component {
             </TouchableOpacity>
             <Body>
               <Text>{this.props.nickname}</Text>
-              <Text note style={{fontSize: 10}}>{this.props.createdate}</Text>
+              <Text note style={{ fontSize: 10 }}>
+                {this.props.createdate}
+              </Text>
             </Body>
           </Left>
         </CardItem>
@@ -126,7 +136,7 @@ export default class CardCompnent extends Component {
 
         <TouchableOpacity onPress={this.props.onPressContent}>
           <CardItem>
-            <Text numberOfLines={2}>{this.props.description}</Text>
+            <Text numberOfLines={2}>{this.state.contents}</Text>
           </CardItem>
         </TouchableOpacity>
 

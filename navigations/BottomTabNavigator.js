@@ -14,6 +14,7 @@ import MyPageStack from "../stacks/MyPageStack";
 import { createStackNavigator } from "react-navigation-stack";
 // import { Icon } from '@expo/vector-icons';
 import Icon from "react-native-vector-icons/Ionicons";
+import { Entypo } from '@expo/vector-icons';
 import MapStack from "../stacks/MapStack";
 import PromiseStack from "../stacks/PromiseStack";
 
@@ -44,7 +45,7 @@ const BottomTabNavigator = createBottomTabNavigator(
 
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="ios-map" style={{ color: tintColor }} size={30} />
+          <Entypo name="location" style={{ color: tintColor }} size={30} />
           // <Ionicons name='md-compass'/>
         )
       }

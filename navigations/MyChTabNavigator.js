@@ -15,8 +15,6 @@ import ChannelContentListScreen from "../screens/ChannelContentListScreen";
 import ChannelCommunityScreen from "../screens/ChannelCommunityScreen";
 import ChannelInfoScreen from "../screens/ChannelInfoScreen";
 import { createAppContainer } from "react-navigation";
-import TabChild1Screen from "../screens/TabChild1Screen";
-
 import { withCollapsibleForTab } from "react-navigation-collapsible";
 import firebase from "firebase";
 import MyChannelHomeScreen from "../screens/MyChannelHomeScreen";
@@ -79,7 +77,7 @@ const GroupImageHeader = ({ navigation, collapsible }) => {
   return (
     <View style={{ width: "100%", height: "100%", justifyContent: "flex-end" }}>
       <Image
-        source={{ uri: url_cat }}
+        source={{ uri: navigation.state.params.blog_main_image }}
         resizeMode="cover"
         style={{
           position: "absolute",

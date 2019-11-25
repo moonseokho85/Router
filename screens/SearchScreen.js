@@ -80,6 +80,7 @@ export default class SearchScreen extends Component {
       isLoading: false
     });
   };
+  
   renderHeader = () => {
     return (
       <SearchBar

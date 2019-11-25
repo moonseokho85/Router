@@ -65,6 +65,7 @@ class HomeScreen extends Component {
     var unique = _.uniqBy(this.state.following, "id");
 
     await this.setState({ uniqueFollow: unique });
+
   }
 
   _fetchData = async () => {
@@ -205,7 +206,8 @@ class HomeScreen extends Component {
             upload_image: item.upload_image,
             description: item.description,
             nickname: item.nickname,
-            home_top_image: item.main_image_url
+            home_top_image: item.main_image_url,
+            blog_main_image: item.blog_main_image
           });
         }}
         onPressContent={() => {
