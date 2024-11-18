@@ -20,7 +20,7 @@
     "expo-location": "^7.0.0",
     "expo-permissions": "^7.0.0",
     "file-system": "^2.2.2",
-    "firebase": "5.7.3",
+    "firebase": "10.9.0",
     "fs": "0.0.1-security",
     "lodash": "^4.17.15",
     "main": "^1000.0.1",
